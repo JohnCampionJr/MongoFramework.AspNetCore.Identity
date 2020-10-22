@@ -179,7 +179,7 @@ namespace MongoFramework.AspNetCore.Identity
 
 			//TODO: Concurrency Check
 			Context.Set<TUser>().Remove(user);
-			await SaveChanges(cancellationToken);
+            await SaveChanges(cancellationToken).ConfigureAwait(false);
 			return IdentityResult.Success;
 		}
 
@@ -235,7 +235,7 @@ namespace MongoFramework.AspNetCore.Identity
 		protected override async Task<TUser> FindUserAsync(TKey userId, CancellationToken cancellationToken)
 		{
 			//this will find the in memory user
-			return await Context.Set<TUser>().FindAsync(userId);
+			return await Context.Set<TUser>().FindAsync(userId).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -264,7 +264,7 @@ namespace MongoFramework.AspNetCore.Identity
 		protected override async Task<TUserLogin> FindUserLoginAsync(string loginProvider, string providerKey, CancellationToken cancellationToken)
 		{
 			var user = await UsersSet.FirstOrDefaultAsync(u =>
-				u.Logins.Any(l => l.LoginProvider == loginProvider && l.ProviderKey == providerKey), cancellationToken);
+				u.Logins.Any(l => l.LoginProvider == loginProvider && l.ProviderKey == providerKey), cancellationToken).ConfigureAwait(false);
 
 			var login = user?.Logins.FirstOrDefault(l => l.LoginProvider == loginProvider && l.ProviderKey == providerKey);
 			return login as TUserLogin;
@@ -445,7 +445,7 @@ namespace MongoFramework.AspNetCore.Identity
             Check.NotNull(claim, nameof(claim));
 
            return await UsersSet.Where(u =>
-	            u.Claims.Any(c => c.ClaimType == claim.Type && c.ClaimValue == claim.Value)).ToListAsync(cancellationToken);
+	            u.Claims.Any(c => c.ClaimType == claim.Type && c.ClaimValue == claim.Value)).ToListAsync(cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
