@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AssemblyName>Scaffold</AssemblyName>
+    <Title>Scaffold</Title>
+    <Description>A starting point of scaffolding for libraries</Description>
+    <PackageTags>$(PackageBaseTags)</PackageTags>
+    <Authors>John Campion Jr</Authors>
+  </PropertyGroup>
+
+</Project>
