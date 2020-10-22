@@ -24,6 +24,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    - name: Configure MongoDB (Ubuntu)
+      run: sudo systemctl start mongod
     - name: Checkout
       uses: actions/checkout@v2
 # If you want to specify a particular version, use this. Otherwise, will use the Runner's installed version      
