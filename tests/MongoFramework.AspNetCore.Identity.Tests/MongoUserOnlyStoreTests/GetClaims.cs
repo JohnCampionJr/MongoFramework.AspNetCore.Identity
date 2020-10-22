@@ -54,7 +54,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 
 			await Should.ThrowAsync<ArgumentNullException>( async () =>
 			{
-				var claims = await store.GetClaimsAsync(null);
+				await store.GetClaimsAsync(null);
 			});
 		}
 

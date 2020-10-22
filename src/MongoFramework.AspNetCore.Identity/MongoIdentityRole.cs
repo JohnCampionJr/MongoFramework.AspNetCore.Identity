@@ -7,7 +7,7 @@ namespace MongoFramework.AspNetCore.Identity
 {
     public class MongoIdentityRole : MongoIdentityRole<string>
     {
-        public MongoIdentityRole() : base() { }
+        public MongoIdentityRole() { }
 
         public MongoIdentityRole(string name) : base(name) { }
     }

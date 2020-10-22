@@ -32,7 +32,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests
 		{
 			Should.Throw<ArgumentNullException>(() =>
 			{
-				var user = new MongoIdentityRole(null);
+				_ = new MongoIdentityRole(null);
 			});
 		}
 

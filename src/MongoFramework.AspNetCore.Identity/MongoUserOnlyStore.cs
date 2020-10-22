@@ -143,7 +143,7 @@ namespace MongoFramework.AspNetCore.Identity
 			ThrowIfDisposed();
 			Check.NotNull(user, nameof(user));
 			Context.Set<TUser>().Add(user);
-			await SaveChanges(cancellationToken);
+            await SaveChanges(cancellationToken).ConfigureAwait(false);
 			return IdentityResult.Success;
 		}
 
@@ -248,7 +248,7 @@ namespace MongoFramework.AspNetCore.Identity
 		/// <returns>The user login if it exists.</returns>
 		protected override async Task<TUserLogin> FindUserLoginAsync(TKey userId, string loginProvider, string providerKey, CancellationToken cancellationToken)
 		{
-			var user = await FindUserAsync(userId, cancellationToken);
+			var user = await FindUserAsync(userId, cancellationToken).ConfigureAwait(false);
 
 			var login = user?.Logins.FirstOrDefault(l => l.LoginProvider == loginProvider && l.ProviderKey == providerKey);
 			return login as TUserLogin;
@@ -352,7 +352,7 @@ namespace MongoFramework.AspNetCore.Identity
 				}
 			}
 
-			await Task.FromResult(false);
+			await Task.FromResult(false).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -468,7 +468,7 @@ namespace MongoFramework.AspNetCore.Identity
         /// <returns></returns>
         protected override async Task AddUserTokenAsync(TUserToken token)
         {
-	        var user = await FindUserAsync(token.UserId, CancellationToken.None);
+	        var user = await FindUserAsync(token.UserId, CancellationToken.None).ConfigureAwait(false);
 	        user?.Tokens.Add(token);
         }
 

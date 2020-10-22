@@ -65,7 +65,6 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 		{
 			var context = new TestContext(GetConnection());
 			var store = new MongoUserOnlyStore<TestUser>(context);
-			var user = await store.FindByIdAsync("1000");
 
 			await Should.ThrowAsync<ArgumentNullException>( async () =>
 			{
