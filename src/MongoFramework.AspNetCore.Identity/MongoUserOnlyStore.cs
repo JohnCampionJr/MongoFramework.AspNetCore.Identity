@@ -161,7 +161,7 @@ namespace MongoFramework.AspNetCore.Identity
 
 			//TODO: Concurrency Check
 			Context.Set<TUser>().Update(user);
-			await SaveChanges(cancellationToken);
+            await SaveChanges(cancellationToken).ConfigureAwait(false);
 			return IdentityResult.Success;
 		}
 
@@ -479,7 +479,7 @@ namespace MongoFramework.AspNetCore.Identity
         /// <returns></returns>
         protected override async Task RemoveUserTokenAsync(TUserToken token)
         {
-	        var user = await FindUserAsync(token.UserId, CancellationToken.None);
+	        var user = await FindUserAsync(token.UserId, CancellationToken.None).ConfigureAwait(false);
 	        user.Tokens.Remove(token);
         }
 
