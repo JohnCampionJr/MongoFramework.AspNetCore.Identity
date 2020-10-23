@@ -198,6 +198,7 @@ namespace MongoFramework.AspNetCore.Identity
 			Check.NotNull(userId, nameof(userId));
 
 			var id = ConvertIdFromString(userId);
+
 			return UsersSet.FindAsync(id).AsTask();
 		}
 
@@ -209,14 +210,26 @@ namespace MongoFramework.AspNetCore.Identity
 		/// <returns>
 		/// The <see cref="Task"/> that represents the asynchronous operation, containing the user matching the specified <paramref name="normalizedUserName"/> if it exists.
 		/// </returns>
-		public override Task<TUser> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken = default(CancellationToken))
+		public override async Task<TUser> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			cancellationToken.ThrowIfCancellationRequested();
 			ThrowIfDisposed();
 			Check.NotNull(normalizedUserName, nameof(normalizedUserName));
 
-			return UsersSet.FirstOrDefaultAsync(u => u.NormalizedUserName == normalizedUserName, cancellationToken);
-		}
+			var user = await UsersSet.FirstOrDefaultAsync(u => u.NormalizedUserName == normalizedUserName, cancellationToken);
+
+            // would like to get existing entry if tracked, but need id to find it
+            if (user != null)
+            {
+                var tracked = Context.ChangeTracker.GetEntryById<TUser>(user.Id);
+                if (tracked != null)
+                {
+                    return tracked.Entity as TUser;
+                }
+            }
+
+            return user;
+        }
 
 		/// <summary>
 		/// A navigation property for the users the store contains.
@@ -421,13 +434,24 @@ namespace MongoFramework.AspNetCore.Identity
         /// <returns>
         /// The task object containing the results of the asynchronous lookup operation, the user if any associated with the specified normalized email address.
         /// </returns>
-        public override Task<TUser> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken = default(CancellationToken))
-		{
-			Check.NotNull(normalizedEmail, nameof(normalizedEmail));
+        public override async Task<TUser> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            Check.NotNull(normalizedEmail, nameof(normalizedEmail));
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
 
-            return Task.FromResult(Users.SingleOrDefault(u => u.NormalizedEmail == normalizedEmail));
+            var user = await Users.SingleOrDefaultAsync(u => u.NormalizedEmail == normalizedEmail, cancellationToken);
+            // would like to get existing entry if tracked, but need id to find it
+            if (user != null)
+            {
+                var tracked = Context.ChangeTracker.GetEntryById<TUser>(user.Id);
+                if (tracked != null)
+                {
+                    return tracked.Entity as TUser;
+                }
+            }
+
+            return user;
         }
 
         /// <summary>

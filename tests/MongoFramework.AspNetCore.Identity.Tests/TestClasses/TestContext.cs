@@ -5,5 +5,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.TestClasses
 		public TestContext(IMongoDbConnection connection) : base(connection) { }
 		public MongoDbSet<TestUser> TestUsers { get; set; }
 		public MongoDbSet<TestUserInt> TestUsersInt { get; set; }
+
+        public MongoDbSet<MongoIdentityRole> Roles { get; set; }
 	}
 }

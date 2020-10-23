@@ -16,7 +16,7 @@ namespace MongoFramework.AspNetCore.Identity
     {
         public MongoIdentityUser()
 		{
-			Roles = new List<string>();
+			Roles = new List<TKey>();
             Claims = new List<IdentityUserClaim<TKey>>();
             Logins = new List<IdentityUserLogin<TKey>>();
             Tokens = new List<IdentityUserToken<TKey>>();
@@ -29,7 +29,7 @@ namespace MongoFramework.AspNetCore.Identity
             NormalizedUserName = userName.Normalize().ToUpperInvariant();
         }
 
-        public List<string> Roles { get; set; }
+        public List<TKey> Roles { get; set; }
 
         public List<IdentityUserClaim<TKey>> Claims { get; set; }
 
