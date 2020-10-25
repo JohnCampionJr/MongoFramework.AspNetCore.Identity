@@ -6,15 +6,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Test;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
-using MongoFramework;
-using MongoFramework.AspNetCore.Identity;
 using Xunit;
 
-namespace MongoFramework.AspNetCore.Identity.Tests
+namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserStoreTests
 {
-    public class UserStoreTest : IdentitySpecificationTestBase<MongoIdentityUser, MongoIdentityRole>
+    public class IdentitySpecTests : IdentitySpecificationTestBase<MongoIdentityUser, MongoIdentityRole>, IDisposable
     {
-        public UserStoreTest()
+        public void Dispose()
         {
             ClearDatabase();
         }
@@ -23,12 +21,12 @@ namespace MongoFramework.AspNetCore.Identity.Tests
         {
             //Removing the database created for the tests
             var client = new MongoClient(TestConfiguration.ConnectionString);
-            client.DropDatabase("UserStoreTest");
+            client.DropDatabase("MongoUserStore-IdentitySpec");
         }
 
         private MongoDbContext CreateContext()
         {
-            var conn = TestConfiguration.GetConnection("UserStoreTest");
+            var conn = TestConfiguration.GetConnection("MongoUserStore-IdentitySpec");
             var db = new MongoDbContext(conn);
             return db;
         }

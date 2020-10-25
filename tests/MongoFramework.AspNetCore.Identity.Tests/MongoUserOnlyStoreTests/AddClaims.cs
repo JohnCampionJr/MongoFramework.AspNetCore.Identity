@@ -12,7 +12,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 	public class AddClaims : TestBase, IAsyncLifetime
 	{
 
-		public AddClaims() : base("MongoUserOnlyStore-AddClaims", false) { }
+		public AddClaims() : base("MongoUserOnlyStore-AddClaims") { }
 
 		public async Task InitializeAsync()
 		{

@@ -6,17 +6,17 @@ using MongoFramework.AspNetCore.Identity.Tests.TestClasses;
 using Shouldly;
 using Xunit;
 
-namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
+namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserStoreTests
 {
 	public class FindByName : TestBase, IAsyncLifetime
 	{
 
-		public FindByName() : base("MongoUserOnlyStore-FindByName") { }
+		public FindByName() : base("MongoUserStore-FindByName") { }
 
 		public async Task InitializeAsync()
 		{
 			var context = new TestContext(GetConnection());
-			var store = new MongoUserOnlyStore<TestUser>(context);
+			var store = new MongoUserStore<TestUser>(context);
 
 			await store.CreateAsync(TestUser.First);
 			await store.CreateAsync(TestUser.Second);
@@ -29,7 +29,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 		public async Task FindsCorrectUserWithValidUserName()
 		{
 			var context = new TestContext(GetConnection());
-			var store = new MongoUserOnlyStore<TestUser>(context);
+			var store = new MongoUserStore<TestUser>(context);
 
 			var result = await store.FindByNameAsync("USER NAME2");
 
@@ -42,7 +42,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
         public async Task FindsTrackedEntityWithValidUserName()
         {
             var context = new TestContext(GetConnection());
-            var store = new MongoUserOnlyStore<TestUser>(context);
+            var store = new MongoUserStore<TestUser>(context);
             var tracked = await store.FindByIdAsync("b2");
             tracked.CustomData = "updated";
 
@@ -57,7 +57,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 		public async Task ReturnsNullWithInvalidUserName()
 		{
 			var context = new TestContext(GetConnection());
-			var store = new MongoUserOnlyStore<TestUser>(context);
+			var store = new MongoUserStore<TestUser>(context);
 
 			var result = await store.FindByNameAsync("none");
 
@@ -68,7 +68,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 		public async Task ThrowsExceptionWithNull()
 		{
 			var context = new TestContext(GetConnection());
-			var store = new MongoUserOnlyStore<TestUser>(context);
+			var store = new MongoUserStore<TestUser>(context);
 
 			await Should.ThrowAsync<ArgumentNullException>( async () =>
 			{

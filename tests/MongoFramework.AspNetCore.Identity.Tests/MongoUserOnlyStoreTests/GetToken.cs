@@ -12,7 +12,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 	public class GetToken : TestBase, IAsyncLifetime
 	{
 
-		public GetToken() : base("MongoUserOnlyStore-GetToken", false) { }
+		public GetToken() : base("MongoUserOnlyStore-GetToken") { }
 
 		public async Task InitializeAsync()
 		{

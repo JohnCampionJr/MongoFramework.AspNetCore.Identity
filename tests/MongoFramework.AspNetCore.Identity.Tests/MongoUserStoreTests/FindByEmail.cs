@@ -6,17 +6,17 @@ using MongoFramework.AspNetCore.Identity.Tests.TestClasses;
 using Shouldly;
 using Xunit;
 
-namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
+namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserStoreTests
 {
-	public class FindByName : TestBase, IAsyncLifetime
+	public class FindByEmail : TestBase, IAsyncLifetime
 	{
 
-		public FindByName() : base("MongoUserOnlyStore-FindByName") { }
+		public FindByEmail() : base("MongoUserStore-FindByEmail") { }
 
 		public async Task InitializeAsync()
 		{
 			var context = new TestContext(GetConnection());
-			var store = new MongoUserOnlyStore<TestUser>(context);
+			var store = new MongoUserStore<TestUser>(context);
 
 			await store.CreateAsync(TestUser.First);
 			await store.CreateAsync(TestUser.Second);
@@ -26,40 +26,38 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 		public Task DisposeAsync() => Task.CompletedTask;
 
 		[Fact]
-		public async Task FindsCorrectUserWithValidUserName()
+		public async Task FindsCorrectUserWithValidEmail()
 		{
 			var context = new TestContext(GetConnection());
-			var store = new MongoUserOnlyStore<TestUser>(context);
+			var store = new MongoUserStore<TestUser>(context);
 
-			var result = await store.FindByNameAsync("USER NAME2");
+			var result = await store.FindByEmailAsync("TEST3@TESTING.COM");
 
 			result.ShouldNotBeNull();
-			result.UserName.ShouldBe("User Name2");
+			result.UserName.ShouldBe("User Name3");
 		}
 
-
         [Fact]
-        public async Task FindsTrackedEntityWithValidUserName()
+        public async Task FindsTrackedEntityWithValidEmail()
         {
             var context = new TestContext(GetConnection());
-            var store = new MongoUserOnlyStore<TestUser>(context);
+            var store = new MongoUserStore<TestUser>(context);
             var tracked = await store.FindByIdAsync("b2");
             tracked.CustomData = "updated";
 
-            var result = await store.FindByNameAsync("USER NAME2");
+            var result = await store.FindByEmailAsync("TEST2@TESTING.COM");
 
             result.ShouldBeSameAs(tracked);
             result.CustomData.ShouldBe("updated");
         }
 
-
 		[Fact]
-		public async Task ReturnsNullWithInvalidUserName()
+		public async Task ReturnsNullWithInvalidEmail()
 		{
 			var context = new TestContext(GetConnection());
-			var store = new MongoUserOnlyStore<TestUser>(context);
+			var store = new MongoUserStore<TestUser>(context);
 
-			var result = await store.FindByNameAsync("none");
+			var result = await store.FindByEmailAsync("none");
 
 			result.ShouldBeNull();
 		}
@@ -68,11 +66,11 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 		public async Task ThrowsExceptionWithNull()
 		{
 			var context = new TestContext(GetConnection());
-			var store = new MongoUserOnlyStore<TestUser>(context);
+			var store = new MongoUserStore<TestUser>(context);
 
 			await Should.ThrowAsync<ArgumentNullException>( async () =>
 			{
-				await store.FindByNameAsync(null);
+				await store.FindByEmailAsync(null);
 			});
 		}
 

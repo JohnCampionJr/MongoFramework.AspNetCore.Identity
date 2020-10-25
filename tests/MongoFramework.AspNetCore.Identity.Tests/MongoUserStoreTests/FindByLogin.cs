@@ -7,12 +7,12 @@ using MongoFramework.AspNetCore.Identity.Tests.TestClasses;
 using Shouldly;
 using Xunit;
 
-namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
+namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserStoreTests
 {
 	public class FindByLogin : TestBase, IAsyncLifetime
 	{
 
-		private class TestStore : MongoUserOnlyStore<TestUser>
+		private class TestStore : MongoUserStore<TestUser>
 		{
 			public TestStore(MongoDbContext context, IdentityErrorDescriber describer = null) : base(context, describer) { }
 
@@ -22,12 +22,12 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 			}
 		}
 
-		public FindByLogin() : base("MongoUserOnlyStore-FindByLogin") { }
+		public FindByLogin() : base("MongoUserStore-FindByLogin") { }
 
 		public async Task InitializeAsync()
 		{
 			var context = new TestContext(GetConnection());
-			var store = new MongoUserOnlyStore<TestUser>(context);
+			var store = new MongoUserStore<TestUser>(context);
 
 			var user = TestUser.First;
 			await store.CreateAsync(user);
@@ -49,7 +49,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 		public async Task GetsCorrectUserFromLogin()
 		{
 			var context = new TestContext(GetConnection());
-			var store = new MongoUserOnlyStore<TestUser>(context);
+			var store = new MongoUserStore<TestUser>(context);
 
 			var user = await store.FindByLoginAsync("provider3", "provider-key");
 
@@ -74,7 +74,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 		public async Task ReturnsNullFromNonExisting()
 		{
 			var context = new TestContext(GetConnection());
-			var store = new MongoUserOnlyStore<TestUser>(context);
+			var store = new MongoUserStore<TestUser>(context);
 
 			var user = await store.FindByLoginAsync("provider5", "provider-key");
 
@@ -85,7 +85,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 		public async Task ReturnsNullFromNull()
 		{
 			var context = new TestContext(GetConnection());
-			var store = new MongoUserOnlyStore<TestUser>(context);
+			var store = new MongoUserStore<TestUser>(context);
 
 			var user = await store.FindByLoginAsync(null, "provider-key");
 

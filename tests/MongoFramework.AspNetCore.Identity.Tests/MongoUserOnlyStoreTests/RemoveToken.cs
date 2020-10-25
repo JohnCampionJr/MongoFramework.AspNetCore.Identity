@@ -12,7 +12,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 	public class RemoveToken : TestBase, IAsyncLifetime
 	{
 
-		public RemoveToken() : base("MongoUserOnlyStore-RemoveToken", false) { }
+		public RemoveToken() : base("MongoUserOnlyStore-RemoveToken") { }
 
 		public async Task InitializeAsync()
 		{

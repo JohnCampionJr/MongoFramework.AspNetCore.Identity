@@ -93,11 +93,7 @@ namespace MongoFramework.AspNetCore.Identity
         /// <param name="describer">The <see cref="IdentityErrorDescriber"/>.</param>
         public MongoRoleStore(TContext context, IdentityErrorDescriber describer = null)
         {
-            if (context == null)
-            {
-                throw new ArgumentNullException(nameof(context));
-            }
-
+            Check.NotNull(context, nameof(context));
             Context = context;
             ErrorDescriber = describer ?? new IdentityErrorDescriber();
         }
@@ -200,10 +196,7 @@ namespace MongoFramework.AspNetCore.Identity
         {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
-            if (role == null)
-            {
-                throw new ArgumentNullException(nameof(role));
-            }
+            Check.NotNull(role, nameof(role));
 
             return Task.FromResult(ConvertIdToString(role.Id));
         }
@@ -218,10 +211,8 @@ namespace MongoFramework.AspNetCore.Identity
         {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
-            if (role == null)
-            {
-                throw new ArgumentNullException(nameof(role));
-            }
+            Check.NotNull(role, nameof(role));
+
             return Task.FromResult(role.Name);
         }
 
@@ -236,10 +227,8 @@ namespace MongoFramework.AspNetCore.Identity
         {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
-            if (role == null)
-            {
-                throw new ArgumentNullException(nameof(role));
-            }
+            Check.NotNull(role, nameof(role));
+
             role.Name = roleName;
             return Task.CompletedTask;
         }
@@ -328,10 +317,8 @@ namespace MongoFramework.AspNetCore.Identity
         {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
-            if (role == null)
-            {
-                throw new ArgumentNullException(nameof(role));
-            }
+            Check.NotNull(role, nameof(role));
+
             return Task.FromResult(role.NormalizedName);
         }
 
@@ -346,10 +333,8 @@ namespace MongoFramework.AspNetCore.Identity
         {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
-            if (role == null)
-            {
-                throw new ArgumentNullException(nameof(role));
-            }
+            Check.NotNull(role, nameof(role));
+
             role.NormalizedName = normalizedName;
             return Task.CompletedTask;
         }

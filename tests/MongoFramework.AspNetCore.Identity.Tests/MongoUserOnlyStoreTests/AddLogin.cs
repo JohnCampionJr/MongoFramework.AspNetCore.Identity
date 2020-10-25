@@ -12,7 +12,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 	public class AddLogin : TestBase, IAsyncLifetime
 	{
 
-		public AddLogin() : base("MongoUserOnlyStore-AddLogin", false) { }
+		public AddLogin() : base("MongoUserOnlyStore-AddLogin") { }
 
 		public async Task InitializeAsync()
 		{

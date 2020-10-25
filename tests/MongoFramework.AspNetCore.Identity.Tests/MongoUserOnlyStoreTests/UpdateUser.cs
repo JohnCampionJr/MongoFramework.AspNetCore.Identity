@@ -11,7 +11,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 	public class UpdateUser : TestBase, IAsyncLifetime
 	{
 
-		public UpdateUser() : base("MongoUserOnlyStore-UpdateUser", false) { }
+		public UpdateUser() : base("MongoUserOnlyStore-UpdateUser") { }
 
 		public async Task InitializeAsync()
 		{
