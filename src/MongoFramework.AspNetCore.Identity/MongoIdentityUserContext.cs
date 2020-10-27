@@ -7,13 +7,27 @@ namespace MongoFramework.AspNetCore.Identity
     /// Base class for the Entity Framework database context used for identity.
     /// </summary>
     /// <typeparam name="TUser">The type of the user objects.</typeparam>
+    public class MongoIdentityUserContext : MongoIdentityUserContext<MongoIdentityUser, string>
+    {
+        /// <summary>
+        /// Initializes a new instance of <see cref="MongoIdentityUserContext{TUser}"/>.
+        /// </summary>
+        /// <param name="connection">The connection to be used by a <see cref="MongoDbContext"/>.</param>
+        public MongoIdentityUserContext(IMongoDbConnection connection) : base(connection) { }
+
+    }
+
+    /// <summary>
+    /// Base class for the Entity Framework database context used for identity.
+    /// </summary>
+    /// <typeparam name="TUser">The type of the user objects.</typeparam>
     public class MongoIdentityUserContext<TUser> : MongoIdentityUserContext<TUser, string> where TUser : MongoIdentityUser
     {
         /// <summary>
         /// Initializes a new instance of <see cref="MongoIdentityUserContext{TUser}"/>.
         /// </summary>
         /// <param name="connection">The connection to be used by a <see cref="MongoDbContext"/>.</param>
-        public MongoIdentityUserContext(MongoDbConnection connection) : base(connection) { }
+        public MongoIdentityUserContext(IMongoDbConnection connection) : base(connection) { }
 
     }
 
@@ -31,7 +45,7 @@ namespace MongoFramework.AspNetCore.Identity
         /// Initializes a new instance of the db context.
         /// </summary>
         /// <param name="connection">The connection to be used by a <see cref="MongoDbContext"/>.</param>
-        public MongoIdentityUserContext(MongoDbConnection connection) : base(connection) { }
+        public MongoIdentityUserContext(IMongoDbConnection connection) : base(connection) { }
 
     }
 
@@ -54,7 +68,7 @@ namespace MongoFramework.AspNetCore.Identity
         /// Initializes a new instance of the class.
         /// </summary>
         /// <param name="connection">The connection to be used by a <see cref="MongoDbContext"/>.</param>
-        public MongoIdentityUserContext(MongoDbConnection connection) : base(connection) { }
+        public MongoIdentityUserContext(IMongoDbConnection connection) : base(connection) { }
 
         /// <summary>
         /// Gets or sets the <see cref="MongoDbSet{TEntity}"/> of Users.

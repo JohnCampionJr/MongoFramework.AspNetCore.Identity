@@ -42,7 +42,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             if (roleType != null)
             {
-                var identityRoleType = FindGenericBaseType(roleType, typeof(IdentityRole<>));
+                var identityRoleType = FindGenericBaseType(roleType, typeof(MongoIdentityRole<>));
                 if (identityRoleType == null)
                 {
                     throw new InvalidOperationException($"{roleType.Name} does not inherit from MongoIdentityRole");
