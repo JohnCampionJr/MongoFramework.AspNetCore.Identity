@@ -262,6 +262,9 @@ namespace MongoFramework.AspNetCore.Identity
 
         protected override async Task<TUserRole> FindUserRoleAsync(TKey userId, TKey roleId, CancellationToken cancellationToken)
         {
+            Check.NotNull(userId, nameof(userId));
+            Check.NotNull(roleId, nameof(roleId));
+
             var user = await FindUserAsync(userId, cancellationToken);
             if (user is null)
             {
