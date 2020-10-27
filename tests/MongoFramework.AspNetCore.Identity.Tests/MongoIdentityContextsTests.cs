@@ -15,7 +15,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests
 		public async Task InitializeAsync()
 		{
 			var context = new TestContext(GetConnection());
-			var store = new MongoUserStore<TestUser>(context);
+			var store = new MongoUserStore<MongoIdentityUser>(context);
 
             context.Roles.Add(new MongoIdentityRole() {Id = "rid1", Name = "Role 1"});
             context.Roles.Add(new MongoIdentityRole() {Id = "rid2", Name = "Role 2"});
@@ -50,7 +50,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests
 
             var store = new MongoUserOnlyStore<MongoIdentityUser,MongoIdentityUserContext>(context);
 
-            store.Context.ShouldBeOfType<MongoIdentityDbContext>();
+            store.Context.ShouldBeOfType<MongoIdentityUserContext>();
             store.Users.Count().ShouldBe(1);
         }
 
