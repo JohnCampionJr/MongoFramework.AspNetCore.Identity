@@ -16,7 +16,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests
         public MongoIdentityBuilderExtensionsTests() : base("MongoIdentityBuilderExtensionsTests") { }
 
 		[Fact]
-		public void ExtensionAddsFullyTypedContexts()
+		public void RegistersFullyTypedUserStoreWithMongoIdentityContext()
 		{
             var services = new ServiceCollection();
 
@@ -44,7 +44,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests
 		}
 
         [Fact]
-        public void ExtensionAddsUserOnlyContexts()
+        public void RegistersFullyTypedUserOnlyStoreWithMongoIdentityContext()
         {
             var services = new ServiceCollection();
 
@@ -67,6 +67,60 @@ namespace MongoFramework.AspNetCore.Identity.Tests
             {
                 db.GetType().GenericTypeArguments.Count().ShouldBe(6);
                 db.ShouldBeOfType<MongoUserOnlyStore<MongoIdentityUser, MongoIdentityDbContext, string, IdentityUserClaim<string>, IdentityUserLogin<string>, IdentityUserToken<string>>>();
+            }
+
+        }
+		[Fact]
+		public void RegistersLimitedTypedUserStoreWithMongoContext()
+		{
+            var services = new ServiceCollection();
+
+            services.AddTransient<IMongoDbConnection>(s =>
+            {
+                var connection = GetConnection();
+                return connection;
+            });
+            services.AddTransient<MongoDbContext, MongoDbContext>();
+
+            services
+                .AddIdentity<MongoIdentityUser, MongoIdentityRole>()
+                .AddMongoFrameworkStores<MongoDbContext>();
+
+            var provider = services.BuildServiceProvider();
+
+            using (var scoped = provider.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            using (var db = scoped.ServiceProvider.GetRequiredService<IUserStore<MongoIdentityUser>>())
+            {
+                db.GetType().GenericTypeArguments.Count().ShouldBe(4);
+                db.ShouldBeOfType<MongoUserStore<MongoIdentityUser, MongoIdentityRole, MongoDbContext, string>>();
+            }
+
+		}
+
+        [Fact]
+        public void RegistersLimitedTypedUserOnlyStoreWithMongoContext()
+        {
+            var services = new ServiceCollection();
+
+            services.AddTransient<IMongoDbConnection>(s =>
+            {
+                var connection = GetConnection();
+                return connection;
+            });
+            services.AddTransient<MongoDbContext, MongoDbContext>();
+
+
+            services
+                .AddIdentityCore<MongoIdentityUser>(o => { })
+                .AddMongoFrameworkStores<MongoDbContext>();
+
+            var provider = services.BuildServiceProvider();
+
+            using (var scoped = provider.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            using (var db = scoped.ServiceProvider.GetRequiredService<IUserStore<MongoIdentityUser>>())
+            {
+                db.GetType().GenericTypeArguments.Count().ShouldBe(3);
+                db.ShouldBeOfType<MongoUserOnlyStore<MongoIdentityUser, MongoDbContext, string>>();
             }
 
         }

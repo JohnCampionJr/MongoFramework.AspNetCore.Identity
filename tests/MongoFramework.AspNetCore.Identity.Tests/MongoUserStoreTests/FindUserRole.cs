@@ -58,12 +58,23 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserStoreTests
         }
 
         [Fact]
-        public async Task FindUserRoleWithInvalidRole()
+        public async Task FindUserRoleFailsWithInvalidRole()
         {
             var context = new TestContext(GetConnection());
             var store = new TestStore(context);
 
             var role = await store.ExposeFindUserRoleAsync("a1","none-rid1");
+
+            role.ShouldBeNull();
+        }
+
+        [Fact]
+        public async Task FindUserRoleFailsWithInvaliUser()
+        {
+            var context = new TestContext(GetConnection());
+            var store = new TestStore(context);
+
+            var role = await store.ExposeFindUserRoleAsync("none-a1","rid1");
 
             role.ShouldBeNull();
         }
