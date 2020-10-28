@@ -38,7 +38,6 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserStoreTests
 
         protected override void AddUserStore(IServiceCollection services, object context = null)
         {
-            //services.AddSingleton<IUserStore<MongoIdentityUser>>(new MongoUserOnlyStore<MongoIdentityUser, MongoDbContext>((MongoDbContext)context));
             services.AddSingleton<IUserStore<MongoIdentityUser>>(new MongoUserStore<MongoIdentityUser, MongoIdentityRole, MongoDbContext>((MongoDbContext)context));
         }
 

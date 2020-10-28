@@ -265,7 +265,7 @@ namespace MongoFramework.AspNetCore.Identity
             Check.NotNull(userId, nameof(userId));
             Check.NotNull(roleId, nameof(roleId));
 
-            var user = await FindUserAsync(userId, cancellationToken);
+            var user = await FindUserAsync(userId, cancellationToken).ConfigureAwait(false);
             if (user is null)
             {
                 return null;
@@ -360,7 +360,7 @@ namespace MongoFramework.AspNetCore.Identity
             Check.NotNull(user, nameof(user));
             Check.NotEmpty(normalizedRoleName, nameof(normalizedRoleName));
 
-            var roleEntity = await FindRoleAsync(normalizedRoleName, cancellationToken);
+            var roleEntity = await FindRoleAsync(normalizedRoleName, cancellationToken).ConfigureAwait(false);
             if (roleEntity != null)
             {
                 if (user.Roles.Contains(roleEntity.Id))
@@ -381,7 +381,6 @@ namespace MongoFramework.AspNetCore.Identity
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
             Check.NotNull(user, nameof(user));
-            var userId = user.Id;
 
             var query = from role in Roles
                 where user.Roles.Contains(role.Id)
@@ -403,7 +402,7 @@ namespace MongoFramework.AspNetCore.Identity
             ThrowIfDisposed();
             Check.NotNull(user, nameof(user));
             Check.NotEmpty(normalizedRoleName, nameof(normalizedRoleName));
-            var role = await FindRoleAsync(normalizedRoleName, cancellationToken);
+            var role = await FindRoleAsync(normalizedRoleName, cancellationToken).ConfigureAwait(false);
             if (role != null)
             {
                 return user.Roles.Contains(role.Id);

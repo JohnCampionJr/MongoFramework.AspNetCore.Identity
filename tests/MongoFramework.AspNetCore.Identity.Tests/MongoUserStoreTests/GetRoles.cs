@@ -19,9 +19,9 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 			var context = new TestContext(GetConnection());
 			var store = new MongoUserStore<TestUser>(context);
 
-            context.Roles.Add(new MongoIdentityRole() {Id = "rid1", Name = "Role 1"});
-            context.Roles.Add(new MongoIdentityRole() {Id = "rid2", Name = "Role 2"});
-            context.Roles.Add(new MongoIdentityRole() {Id = "rid3", Name = "Role 3"});
+            context.Roles.Add(new MongoIdentityRole {Id = "rid1", Name = "Role 1"});
+            context.Roles.Add(new MongoIdentityRole {Id = "rid2", Name = "Role 2"});
+            context.Roles.Add(new MongoIdentityRole {Id = "rid3", Name = "Role 3"});
 
             await context.SaveChangesAsync();
 

@@ -254,7 +254,10 @@ namespace MongoFramework.AspNetCore.Identity
         /// <returns>An <see cref="string"/> representation of the provided <paramref name="id"/>.</returns>
         public virtual string ConvertIdToString(TKey id)
         {
-            if (id == null) return null;
+            if (id == null)
+            {
+                return null;
+            }
             if (id.Equals(default(TKey)))
             {
                 return null;

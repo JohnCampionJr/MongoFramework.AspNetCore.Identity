@@ -16,9 +16,9 @@ namespace MongoFramework.AspNetCore.Identity.Tests
 			var context = new TestContext(GetConnection());
 			var store = new MongoUserStore<TestUser>(context);
 
-            context.Roles.Add(new MongoIdentityRole() {Id = "rid1", Name = "Role 1"});
-            context.Roles.Add(new MongoIdentityRole() {Id = "rid2", Name = "Role 2"});
-            context.Roles.Add(new MongoIdentityRole() {Id = "rid3", Name = "Role 3"});
+            context.Roles.Add(new MongoIdentityRole {Id = "rid1", Name = "Role 1"});
+            context.Roles.Add(new MongoIdentityRole {Id = "rid2", Name = "Role 2"});
+            context.Roles.Add(new MongoIdentityRole {Id = "rid3", Name = "Role 3"});
 
             await context.SaveChangesAsync();
 
@@ -69,7 +69,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests
 			var context = new TestContext(GetConnection());
             var store = new MongoRoleStore<MongoIdentityRole<int>,MongoDbContext,int>(context);
 
-            var role = new MongoIdentityRole<int>() {Name = "testrole", NormalizedName = "TESTROLE"};
+            var role = new MongoIdentityRole<int> {Name = "testrole", NormalizedName = "TESTROLE"};
             var name = await store.GetNormalizedRoleNameAsync(role);
 
             name.ShouldBe("TESTROLE");
