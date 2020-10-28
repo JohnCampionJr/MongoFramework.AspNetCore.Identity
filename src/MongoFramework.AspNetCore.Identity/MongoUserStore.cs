@@ -334,7 +334,7 @@ namespace MongoFramework.AspNetCore.Identity
             Check.NotNull(user, nameof(user));
             Check.NotEmpty(normalizedRoleName, nameof(normalizedRoleName));
 
-            var roleEntity = await FindRoleAsync(normalizedRoleName, cancellationToken);
+            var roleEntity = await FindRoleAsync(normalizedRoleName, cancellationToken).ConfigureAwait(false);
             if (roleEntity == null)
             {
                 throw new InvalidOperationException(string.Format(CultureInfo.CurrentCulture, "Role {0} does not exist", normalizedRoleName));
@@ -385,7 +385,7 @@ namespace MongoFramework.AspNetCore.Identity
             var query = from role in Roles
                 where user.Roles.Contains(role.Id)
                 select role.Name;
-            return await query.ToListAsync(cancellationToken);
+            return await query.ToListAsync(cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -612,7 +612,7 @@ namespace MongoFramework.AspNetCore.Identity
             ThrowIfDisposed();
             Check.NotNull(normalizedRoleName, nameof(normalizedRoleName));
 
-            var role = await FindRoleAsync(normalizedRoleName, cancellationToken);
+            var role = await FindRoleAsync(normalizedRoleName, cancellationToken).ConfigureAwait(false);
 
             if (role != null)
             {
