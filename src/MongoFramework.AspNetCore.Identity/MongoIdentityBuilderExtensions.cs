@@ -1,6 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-// https://github.com/dotnet/aspnetcore/blob/master/src/Identity/EntityFrameworkCore/src/IdentityEntityFrameworkBuilderExtensions.cs
+﻿// https://github.com/dotnet/aspnetcore/blob/master/src/Identity/EntityFrameworkCore/src/IdentityEntityFrameworkBuilderExtensions.cs
 
 using System;
 using System.Reflection;
@@ -24,7 +22,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="builder">The <see cref="IdentityBuilder"/> instance this method extends.</param>
         /// <returns>The <see cref="IdentityBuilder"/> instance this method extends.</returns>
         public static IdentityBuilder AddMongoFrameworkStores<TContext>(this IdentityBuilder builder)
-            where TContext : MongoDbContext
+            where TContext : IMongoDbContext
         {
             AddStores(builder.Services, builder.UserType, builder.RoleType, typeof(TContext));
             return builder;

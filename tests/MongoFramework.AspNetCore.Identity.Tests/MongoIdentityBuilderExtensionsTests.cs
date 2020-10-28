@@ -75,13 +75,17 @@ namespace MongoFramework.AspNetCore.Identity.Tests
 		{
             var services = new ServiceCollection();
 
+            //need connection
             services.AddTransient<IMongoDbConnection>(s =>
             {
                 var connection = GetConnection();
                 return connection;
             });
+
+            //need context
             services.AddTransient<MongoDbContext, MongoDbContext>();
 
+            //then we can add the stores
             services
                 .AddIdentity<MongoIdentityUser, MongoIdentityRole>()
                 .AddMongoFrameworkStores<MongoDbContext>();
