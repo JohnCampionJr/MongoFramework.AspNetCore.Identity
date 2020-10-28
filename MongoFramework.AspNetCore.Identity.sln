@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30611.23
@@ -9,9 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{361C3E41-652
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{96A1AC98-4533-45A3-A7B2-0A5CFF3C16CE}"
-	ProjectSection(SolutionItems) = preProject
-		tests\Directory.Build.props = tests\Directory.Build.props
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoFramework.AspNetCore.Identity", "src\MongoFramework.AspNetCore.Identity\MongoFramework.AspNetCore.Identity.csproj", "{B90D555B-ADCA-4AD4-BF15-024E7AFA1A92}"
 EndProject
@@ -30,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "global", "global", "{A8F5FC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{55F01A81-369B-4207-B216-D1E7479696CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity31Sample", "samples\Identity31Sample\Identity31Sample.csproj", "{A6AE19A9-1A25-44F9-A3AF-0FD8A5E3DD80}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +43,10 @@ Global
 		{29C2E938-DF09-4B16-B48C-AD78C3696066}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29C2E938-DF09-4B16-B48C-AD78C3696066}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29C2E938-DF09-4B16-B48C-AD78C3696066}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6AE19A9-1A25-44F9-A3AF-0FD8A5E3DD80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6AE19A9-1A25-44F9-A3AF-0FD8A5E3DD80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6AE19A9-1A25-44F9-A3AF-0FD8A5E3DD80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6AE19A9-1A25-44F9-A3AF-0FD8A5E3DD80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,6 +54,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{B90D555B-ADCA-4AD4-BF15-024E7AFA1A92} = {361C3E41-652C-480A-B249-58CEEB13DD07}
 		{29C2E938-DF09-4B16-B48C-AD78C3696066} = {96A1AC98-4533-45A3-A7B2-0A5CFF3C16CE}
+		{A6AE19A9-1A25-44F9-A3AF-0FD8A5E3DD80} = {55F01A81-369B-4207-B216-D1E7479696CE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {29545771-6EAC-4B41-9942-E68F79302B8D}
