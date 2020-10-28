@@ -11,7 +11,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 	public class FindByEmail : TestBase, IAsyncLifetime
 	{
 
-		public FindByEmail() : base("MongoUserOnlyStore-FindByEmail", false) { }
+		public FindByEmail() : base("MongoUserOnlyStore-FindByEmail") { }
 
 		public async Task InitializeAsync()
 		{
@@ -36,6 +36,20 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 			result.ShouldNotBeNull();
 			result.UserName.ShouldBe("User Name3");
 		}
+
+        [Fact]
+        public async Task FindsTrackedEntityWithValidEmail()
+        {
+            var context = new TestContext(GetConnection());
+            var store = new MongoUserOnlyStore<TestUser>(context);
+            var tracked = await store.FindByIdAsync("b2");
+            tracked.CustomData = "updated";
+
+            var result = await store.FindByEmailAsync("TEST2@TESTING.COM");
+
+            result.ShouldBeSameAs(tracked);
+            result.CustomData.ShouldBe("updated");
+        }
 
 		[Fact]
 		public async Task ReturnsNullWithInvalidEmail()

@@ -11,7 +11,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 	public class CreateUser : TestBase
 	{
 
-		public CreateUser() : base("MongoUserOnlyStore-CreateUser",false) { }
+		public CreateUser() : base("MongoUserOnlyStore-CreateUser") { }
 
 		[Fact]
 		public async Task ReturnsSuccessWithStringId()

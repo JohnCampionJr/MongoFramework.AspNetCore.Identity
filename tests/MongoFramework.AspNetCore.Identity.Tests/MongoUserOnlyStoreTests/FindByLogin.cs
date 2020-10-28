@@ -22,7 +22,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 			}
 		}
 
-		public FindByLogin() : base("MongoUserOnlyStore-FindByLogin", false) { }
+		public FindByLogin() : base("MongoUserOnlyStore-FindByLogin") { }
 
 		public async Task InitializeAsync()
 		{

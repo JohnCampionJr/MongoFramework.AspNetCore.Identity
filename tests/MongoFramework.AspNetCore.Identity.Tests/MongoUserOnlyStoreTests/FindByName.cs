@@ -11,7 +11,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 	public class FindByName : TestBase, IAsyncLifetime
 	{
 
-		public FindByName() : base("MongoUserOnlyStore-FindByName", false) { }
+		public FindByName() : base("MongoUserOnlyStore-FindByName") { }
 
 		public async Task InitializeAsync()
 		{
@@ -36,6 +36,22 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 			result.ShouldNotBeNull();
 			result.UserName.ShouldBe("User Name2");
 		}
+
+
+        [Fact]
+        public async Task FindsTrackedEntityWithValidUserName()
+        {
+            var context = new TestContext(GetConnection());
+            var store = new MongoUserOnlyStore<TestUser>(context);
+            var tracked = await store.FindByIdAsync("b2");
+            tracked.CustomData = "updated";
+
+            var result = await store.FindByNameAsync("USER NAME2");
+
+            result.ShouldBeSameAs(tracked);
+            result.CustomData.ShouldBe("updated");
+        }
+
 
 		[Fact]
 		public async Task ReturnsNullWithInvalidUserName()

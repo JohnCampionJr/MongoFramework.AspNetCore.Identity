@@ -12,7 +12,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 	public class DeleteUser : TestBase
 	{
 
-		public DeleteUser() : base("MongoUserOnlyStore-DeleteUser",false) { }
+		public DeleteUser() : base("MongoUserOnlyStore-DeleteUser") { }
 
 		[Fact]
 		public async Task DeletesDataWithValidUser()

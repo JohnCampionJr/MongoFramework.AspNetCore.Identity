@@ -11,7 +11,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 	public class FindById : TestBase, IAsyncLifetime
 	{
 
-		public FindById() : base("MongoUserOnlyStore-FindById", false) { }
+		public FindById() : base("MongoUserOnlyStore-FindById") { }
 
 		public async Task InitializeAsync()
 		{
