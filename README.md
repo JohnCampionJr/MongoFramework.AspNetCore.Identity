@@ -6,10 +6,26 @@
 .Net Core Identity providers for [MongoFramework](https://github.com/TurnerSoftware/MongoFramework).
 
 ## Features
-- .NET Core 2.1
+MongoFramework Implementations
+- IdentityUser
+- IdentityRole
+- RoleStore
+- UserStore
+- UserOnlyStore
 
-## To-Do
+ServiceCollection Extensions for
+- MongoDbContext
+````cs
+services.AddMongoDbContext<MongoDbContext>(o =>
+    o.ConnectionString = Configuration.GetConnectionString("DefaultConnection"));
+````
 
-### References 
+- Identity Stores
+````cs
+services.AddDefaultIdentity<MongoIdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddMongoFrameworkStores<MongoDbContext>();
+````
 
-### Thanks
+Sample .NET Core Project
+
+Unit Tests, including passing Asp.Net Core's IdentitySpecificationBase

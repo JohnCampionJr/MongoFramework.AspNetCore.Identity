@@ -46,8 +46,8 @@ jobs:
       run: dotnet test --logger trx --results-directory ${{env.BUILD_ARTIFACT_PATH}}/test-results
     - name: Pack
       run: dotnet pack -c Release --no-build --include-symbols /p:SymbolPackageFormat=snupkg /p:Version=${{ steps.getversion.outputs.build-version }}  /p:PackageOutputPath=${{env.BUILD_ARTIFACT_PATH}}/packages 
-    - name: Publish to GitHub Packages
-      run: dotnet nuget push ${{env.BUILD_ARTIFACT_PATH}}/packages/*.nupkg -s https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json -k ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
+#    - name: Publish to GitHub Packages
+#      run: dotnet nuget push ${{env.BUILD_ARTIFACT_PATH}}/packages/*.nupkg -s https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json -k ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
 
     - name: Publish artifacts
       if: ${{ always() }}
