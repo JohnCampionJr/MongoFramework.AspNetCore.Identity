@@ -9,7 +9,7 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/JohnCampionJr/MongoFramework.AspNetCore.Identity</PackageProjectUrl>
-    <PackageBaseTags>template;scaffold</PackageBaseTags>
+    <PackageBaseTags>mongodb;mongoframework;mongo;identity</PackageBaseTags>
 
     <RepositoryUrl>https://github.com/JohnCampionJr/MongoFramework.AspNetCore.Identity.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
