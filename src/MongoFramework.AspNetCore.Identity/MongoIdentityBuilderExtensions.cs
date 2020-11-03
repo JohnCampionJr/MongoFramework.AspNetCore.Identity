@@ -24,7 +24,6 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IdentityBuilder AddMongoFrameworkStores<TContext>(this IdentityBuilder builder)
             where TContext : IMongoDbContext
         {
-            builder.Services.AddMongoDbContext<TContext>(); // Note, will not override existing context if already added.
             AddStores(builder.Services, builder.UserType, builder.RoleType, typeof(TContext));
             return builder;
         }
