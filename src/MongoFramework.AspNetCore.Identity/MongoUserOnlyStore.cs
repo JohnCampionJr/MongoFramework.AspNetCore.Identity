@@ -216,7 +216,7 @@ namespace MongoFramework.AspNetCore.Identity
 			ThrowIfDisposed();
 			Check.NotNull(normalizedUserName, nameof(normalizedUserName));
 
-			var user = await UsersSet.FirstOrDefaultAsync(u => u.NormalizedUserName == normalizedUserName, cancellationToken);
+			var user = await UsersSet.AsNoTracking().FirstOrDefaultAsync(u => u.NormalizedUserName == normalizedUserName, cancellationToken);
 
             // would like to get existing entry if tracked, but need id to find it
             if (user != null)
@@ -226,6 +226,9 @@ namespace MongoFramework.AspNetCore.Identity
                 {
                     return tracked.Entity as TUser;
                 }
+
+                //Attach it if not tracked
+                Context.Attach(user);
             }
 
             return user;
@@ -440,7 +443,7 @@ namespace MongoFramework.AspNetCore.Identity
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
 
-            var user = await Users.SingleOrDefaultAsync(u => u.NormalizedEmail == normalizedEmail, cancellationToken);
+            var user = await UsersSet.AsNoTracking().SingleOrDefaultAsync(u => u.NormalizedEmail == normalizedEmail, cancellationToken);
             // would like to get existing entry if tracked, but need id to find it
             if (user != null)
             {
@@ -449,6 +452,9 @@ namespace MongoFramework.AspNetCore.Identity
                 {
                     return tracked.Entity as TUser;
                 }
+
+                //Attach it if not tracked
+                Context.Attach(user);
             }
 
             return user;

@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using MongoFramework.Infrastructure;
 using MongoFramework.Linq;
 using MongoFramework.Utilities;
 
@@ -281,7 +282,7 @@ namespace MongoFramework.AspNetCore.Identity
             }
             var roleId = ConvertIdFromString(id);
             //this will find the in memory user
-            return await Context.Set<TRole>().FindAsync(roleId).ConfigureAwait(false);
+            return await RolesSet.FindAsync(roleId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -294,7 +295,7 @@ namespace MongoFramework.AspNetCore.Identity
         {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
-            var role = await Roles.FirstOrDefaultAsync(r => r.NormalizedName == normalizedName, cancellationToken);
+            var role = await RolesSet.AsNoTracking().FirstOrDefaultAsync(r => r.NormalizedName == normalizedName, cancellationToken);
 
             // would like to get existing entry if tracked, but need id to find it
             if (role != null)
@@ -304,6 +305,9 @@ namespace MongoFramework.AspNetCore.Identity
                 {
                     return tracked.Entity as TRole;
                 }
+
+                //Attach it if not tracked
+                Context.Attach(role);
             }
 
             return role;
@@ -415,6 +419,8 @@ namespace MongoFramework.AspNetCore.Identity
         /// A navigation property for the roles the store contains.
         /// </summary>
         public virtual IQueryable<TRole> Roles => Context.Set<TRole>();
+
+        private IMongoDbSet<TRole> RolesSet => Context.Set<TRole>();
 
         /// <summary>
         /// Creates an entity representing a role claim.
