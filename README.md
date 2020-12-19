@@ -20,10 +20,26 @@ services.AddMongoDbContext<MongoDbContext>(o =>
     o.ConnectionString = Configuration.GetConnectionString("DefaultConnection"));
 ````
 
-- Identity Stores
+- Identity Stores (adds to IdentityBuilder)
 ````cs
 services.AddDefaultIdentity<MongoIdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddMongoFrameworkStores<MongoDbContext>();
+````
+
+- Complete Identity (User Only)
+````cs
+services.AddMongoDbContext<MongoDbContext>(o =>
+    o.ConnectionString = Configuration.GetConnectionString("DefaultConnection"));
+
+services.AddDefaultMongoIdentity<MongoIdentityUser, MongoDbContext>();
+````
+
+- Complete Identity (Users and Roles)
+````cs
+services.AddMongoDbContext<MongoDbContext>(o =>
+    o.ConnectionString = Configuration.GetConnectionString("DefaultConnection"));
+
+services.AddMongoIdentity<MongoIdentityUser, MongoIdentityRole, MongoDbContext>();
 ````
 
 Sample .NET Core Project
