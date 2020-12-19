@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,8 +30,8 @@ namespace Identity31Sample
             services.AddMongoDbContext<MongoDbContext>(o =>
                 o.ConnectionString = Configuration.GetConnectionString("DefaultConnection"));
 
-            services.AddDefaultIdentity<MongoIdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddMongoFrameworkStores<MongoDbContext>();
+            services.AddDefaultMongoIdentity<MongoIdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddDefaultUI();
 
             services.AddRazorPages();
         }
