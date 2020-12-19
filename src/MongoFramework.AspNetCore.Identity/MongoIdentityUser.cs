@@ -15,8 +15,8 @@ namespace MongoFramework.AspNetCore.Identity
     public class MongoIdentityUser<TKey> : IdentityUser<TKey> where TKey : IEquatable<TKey>
     {
         public MongoIdentityUser()
-		{
-			Roles = new List<TKey>();
+        {
+            Roles = new List<TKey>();
             Claims = new List<IdentityUserClaim<TKey>>();
             Logins = new List<IdentityUserLogin<TKey>>();
             Tokens = new List<IdentityUserToken<TKey>>();
@@ -24,7 +24,7 @@ namespace MongoFramework.AspNetCore.Identity
 
         public MongoIdentityUser(string userName) : this()
         {
-	        Check.NotNull(userName, nameof(userName));
+            Check.NotNull(userName, nameof(userName));
             UserName = userName;
             NormalizedUserName = userName.Normalize().ToUpperInvariant();
         }

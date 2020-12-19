@@ -25,7 +25,7 @@ namespace MongoFramework.AspNetCore.Identity
         /// Initializes a new instance of <see cref="MongoIdentityDbContext"/>.
         /// </summary>
         /// <param name="connection">The connection to be used by a <see cref="MongoDbContext"/>.</param>
-        public MongoIdentityDbContext(MongoDbConnection connection) : base(connection) { }
+        public MongoIdentityDbContext(IMongoDbConnection connection) : base(connection) { }
     }
 
     /// <summary>
@@ -38,7 +38,7 @@ namespace MongoFramework.AspNetCore.Identity
         /// Initializes a new instance of <see cref="MongoIdentityDbContext"/>.
         /// </summary>
         /// <param name="connection">The connection to be used by a <see cref="MongoDbContext"/>.</param>
-        public MongoIdentityDbContext(MongoDbConnection connection) : base(connection) { }
+        public MongoIdentityDbContext(IMongoDbConnection connection) : base(connection) { }
     }
 
     /// <summary>

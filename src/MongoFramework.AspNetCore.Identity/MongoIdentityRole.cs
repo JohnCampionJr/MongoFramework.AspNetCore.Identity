@@ -21,7 +21,7 @@ namespace MongoFramework.AspNetCore.Identity
 
         public MongoIdentityRole(string name) : this()
         {
-	        Check.NotNull(name, nameof(name));
+            Check.NotNull(name, nameof(name));
             Name = name;
             NormalizedName = name.Normalize().ToUpperInvariant();
         }

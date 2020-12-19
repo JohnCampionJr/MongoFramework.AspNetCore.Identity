@@ -276,7 +276,7 @@ namespace MongoFramework.AspNetCore.Identity
 
             var inRole = user.Roles.Contains(roleId);
 
-            return inRole ? new TUserRole {RoleId = roleId, UserId = userId} : null;
+            return inRole ? new TUserRole { RoleId = roleId, UserId = userId } : null;
         }
 
         /// <summary>
@@ -386,8 +386,8 @@ namespace MongoFramework.AspNetCore.Identity
             Check.NotNull(user, nameof(user));
 
             var query = from role in Roles
-                where user.Roles.Contains(role.Id)
-                select role.Name;
+                        where user.Roles.Contains(role.Id)
+                        select role.Name;
             return await query.ToListAsync(cancellationToken).ConfigureAwait(false);
         }
 
@@ -427,75 +427,75 @@ namespace MongoFramework.AspNetCore.Identity
             return Task.FromResult<IList<Claim>>(user?.Claims?.Select(claim => claim.ToClaim()).ToList() ?? new List<Claim>());
         }
 
-		/// <summary>
-		/// Adds the <paramref name="claims"/> given to the specified <paramref name="user"/>.
-		/// </summary>
-		/// <param name="user">The user to add the claim to.</param>
-		/// <param name="claims">The claim to add to the user.</param>
-		/// <param name="cancellationToken">The <see cref="CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
-		/// <returns>The <see cref="Task"/> that represents the asynchronous operation.</returns>
-		public override Task AddClaimsAsync(TUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken = default(CancellationToken))
-		{
-			ThrowIfDisposed();
-			Check.NotNull(user, nameof(user));
-			Check.NotNull(claims, nameof(claims));
+        /// <summary>
+        /// Adds the <paramref name="claims"/> given to the specified <paramref name="user"/>.
+        /// </summary>
+        /// <param name="user">The user to add the claim to.</param>
+        /// <param name="claims">The claim to add to the user.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+        /// <returns>The <see cref="Task"/> that represents the asynchronous operation.</returns>
+        public override Task AddClaimsAsync(TUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            ThrowIfDisposed();
+            Check.NotNull(user, nameof(user));
+            Check.NotNull(claims, nameof(claims));
 
-			foreach (var claim in claims)
-			{
-				user.Claims.Add(CreateUserClaim(user, claim));
-			}
+            foreach (var claim in claims)
+            {
+                user.Claims.Add(CreateUserClaim(user, claim));
+            }
 
-			return Task.FromResult(false);
-		}
+            return Task.FromResult(false);
+        }
 
-		/// <summary>
-		/// Replaces the <paramref name="claim"/> on the specified <paramref name="user"/>, with the <paramref name="newClaim"/>.
-		/// </summary>
-		/// <param name="user">The user to replace the claim on.</param>
-		/// <param name="claim">The claim replace.</param>
-		/// <param name="newClaim">The new claim replacing the <paramref name="claim"/>.</param>
-		/// <param name="cancellationToken">The <see cref="CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
-		/// <returns>The <see cref="Task"/> that represents the asynchronous operation.</returns>
-		public override Task ReplaceClaimAsync(TUser user, Claim claim, Claim newClaim, CancellationToken cancellationToken = default(CancellationToken))
-		{
-			ThrowIfDisposed();
-			Check.NotNull(user, nameof(user));
-			Check.NotNull(claim, nameof(claim));
-			Check.NotNull(newClaim, nameof(newClaim));
+        /// <summary>
+        /// Replaces the <paramref name="claim"/> on the specified <paramref name="user"/>, with the <paramref name="newClaim"/>.
+        /// </summary>
+        /// <param name="user">The user to replace the claim on.</param>
+        /// <param name="claim">The claim replace.</param>
+        /// <param name="newClaim">The new claim replacing the <paramref name="claim"/>.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+        /// <returns>The <see cref="Task"/> that represents the asynchronous operation.</returns>
+        public override Task ReplaceClaimAsync(TUser user, Claim claim, Claim newClaim, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            ThrowIfDisposed();
+            Check.NotNull(user, nameof(user));
+            Check.NotNull(claim, nameof(claim));
+            Check.NotNull(newClaim, nameof(newClaim));
 
-			var matchedClaims = user.Claims.Where(uc => uc.ClaimValue == claim.Value && uc.ClaimType == claim.Type).ToList();
-			foreach (var matchedClaim in matchedClaims)
-			{
-				matchedClaim.ClaimValue = newClaim.Value;
-				matchedClaim.ClaimType = newClaim.Type;
-			}
+            var matchedClaims = user.Claims.Where(uc => uc.ClaimValue == claim.Value && uc.ClaimType == claim.Type).ToList();
+            foreach (var matchedClaim in matchedClaims)
+            {
+                matchedClaim.ClaimValue = newClaim.Value;
+                matchedClaim.ClaimType = newClaim.Type;
+            }
 
-			return Task.FromResult(false);
-		}
+            return Task.FromResult(false);
+        }
 
-		/// <summary>
-		/// Removes the <paramref name="claims"/> given from the specified <paramref name="user"/>.
-		/// </summary>
-		/// <param name="user">The user to remove the claims from.</param>
-		/// <param name="claims">The claim to remove.</param>
-		/// <param name="cancellationToken">The <see cref="CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
-		/// <returns>The <see cref="Task"/> that represents the asynchronous operation.</returns>
-		public override async Task RemoveClaimsAsync(TUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken = default(CancellationToken))
-		{
-			ThrowIfDisposed();
-			Check.NotNull(user, nameof(user));
-			Check.NotNull(claims, nameof(claims));
-			foreach (var claim in claims)
-			{
-				var matchedClaims = user.Claims.Where(uc => uc.UserId.Equals(user.Id) && uc.ClaimValue == claim.Value && uc.ClaimType == claim.Type).ToList();
-				foreach (var c in matchedClaims)
-				{
-					user.Claims.Remove(c);
-				}
-			}
+        /// <summary>
+        /// Removes the <paramref name="claims"/> given from the specified <paramref name="user"/>.
+        /// </summary>
+        /// <param name="user">The user to remove the claims from.</param>
+        /// <param name="claims">The claim to remove.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+        /// <returns>The <see cref="Task"/> that represents the asynchronous operation.</returns>
+        public override async Task RemoveClaimsAsync(TUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            ThrowIfDisposed();
+            Check.NotNull(user, nameof(user));
+            Check.NotNull(claims, nameof(claims));
+            foreach (var claim in claims)
+            {
+                var matchedClaims = user.Claims.Where(uc => uc.UserId.Equals(user.Id) && uc.ClaimValue == claim.Value && uc.ClaimType == claim.Type).ToList();
+                foreach (var c in matchedClaims)
+                {
+                    user.Claims.Remove(c);
+                }
+            }
 
-			await Task.FromResult(false).ConfigureAwait(false);
-		}
+            await Task.FromResult(false).ConfigureAwait(false);
+        }
 
         /// <summary>
         /// Adds the <paramref name="login"/> given to the specified <paramref name="user"/>.
@@ -523,37 +523,37 @@ namespace MongoFramework.AspNetCore.Identity
 		/// <param name="cancellationToken">The <see cref="CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
 		/// <returns>The <see cref="Task"/> that represents the asynchronous operation.</returns>
 		public override Task RemoveLoginAsync(TUser user, string loginProvider, string providerKey, CancellationToken cancellationToken = default(CancellationToken))
-		{
-			cancellationToken.ThrowIfCancellationRequested();
-			ThrowIfDisposed();
-			Check.NotNull(user, nameof(user));
-			var entry = user?.Logins.FirstOrDefault(l => l.LoginProvider == loginProvider && l.ProviderKey == providerKey);
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            ThrowIfDisposed();
+            Check.NotNull(user, nameof(user));
+            var entry = user?.Logins.FirstOrDefault(l => l.LoginProvider == loginProvider && l.ProviderKey == providerKey);
 
-			if (entry != null)
-			{
-				user.Logins.Remove(entry);
-			}
-			return Task.FromResult(false);
-		}
+            if (entry != null)
+            {
+                user.Logins.Remove(entry);
+            }
+            return Task.FromResult(false);
+        }
 
-		/// <summary>
-		/// Retrieves the associated logins for the specified <param ref="user"/>.
-		/// </summary>
-		/// <param name="user">The user whose associated logins to retrieve.</param>
-		/// <param name="cancellationToken">The <see cref="CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
-		/// <returns>
-		/// The <see cref="Task"/> for the asynchronous operation, containing a list of <see cref="UserLoginInfo"/> for the specified <paramref name="user"/>, if any.
-		/// </returns>
-		public override Task<IList<UserLoginInfo>> GetLoginsAsync(TUser user, CancellationToken cancellationToken = default(CancellationToken))
-		{
-			ThrowIfDisposed();
-			Check.NotNull(user, nameof(user));
+        /// <summary>
+        /// Retrieves the associated logins for the specified <param ref="user"/>.
+        /// </summary>
+        /// <param name="user">The user whose associated logins to retrieve.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+        /// <returns>
+        /// The <see cref="Task"/> for the asynchronous operation, containing a list of <see cref="UserLoginInfo"/> for the specified <paramref name="user"/>, if any.
+        /// </returns>
+        public override Task<IList<UserLoginInfo>> GetLoginsAsync(TUser user, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            ThrowIfDisposed();
+            Check.NotNull(user, nameof(user));
 
-			var result = user?.Logins?.Select(l => new UserLoginInfo(l.LoginProvider, l.ProviderKey, l.ProviderDisplayName))
-				.ToList() ?? new List<UserLoginInfo>();
+            var result = user?.Logins?.Select(l => new UserLoginInfo(l.LoginProvider, l.ProviderKey, l.ProviderDisplayName))
+                .ToList() ?? new List<UserLoginInfo>();
 
-			return Task.FromResult<IList<UserLoginInfo>>(result);
-		}
+            return Task.FromResult<IList<UserLoginInfo>>(result);
+        }
 
         /// <summary>
         /// Gets the user, if any, associated with the specified, normalized email address.
@@ -564,8 +564,8 @@ namespace MongoFramework.AspNetCore.Identity
         /// The task object containing the results of the asynchronous lookup operation, the user if any associated with the specified normalized email address.
         /// </returns>
         public override async Task<TUser> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken = default(CancellationToken))
-		{
-			Check.NotNull(normalizedEmail, nameof(normalizedEmail));
+        {
+            Check.NotNull(normalizedEmail, nameof(normalizedEmail));
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
 
@@ -600,8 +600,8 @@ namespace MongoFramework.AspNetCore.Identity
             ThrowIfDisposed();
             Check.NotNull(claim, nameof(claim));
 
-           return await UsersSet.Where(u =>
-	            u.Claims.Any(c => c.ClaimType == claim.Type && c.ClaimValue == claim.Value)).ToListAsync(cancellationToken).ConfigureAwait(false);
+            return await UsersSet.Where(u =>
+                 u.Claims.Any(c => c.ClaimType == claim.Type && c.ClaimValue == claim.Value)).ToListAsync(cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
