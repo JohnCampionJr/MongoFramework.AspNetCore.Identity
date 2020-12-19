@@ -31,6 +31,19 @@ namespace MongoFramework.AspNetCore.Identity
     /// <summary>
     /// Base class for the Mongo Framework database context used for identity.
     /// </summary>
+    /// <typeparam name="TUser">The type of the user objects.</typeparam>
+    public class MongoIdentityDbContext<TUser, TRole> : MongoIdentityDbContext<TUser, TRole, string> where TUser : MongoIdentityUser where TRole : MongoIdentityRole
+    {
+        /// <summary>
+        /// Initializes a new instance of <see cref="MongoIdentityDbContext"/>.
+        /// </summary>
+        /// <param name="connection">The connection to be used by a <see cref="MongoDbContext"/>.</param>
+        public MongoIdentityDbContext(MongoDbConnection connection) : base(connection) { }
+    }
+
+    /// <summary>
+    /// Base class for the Mongo Framework database context used for identity.
+    /// </summary>
     /// <typeparam name="TUser">The type of user objects.</typeparam>
     /// <typeparam name="TRole">The type of role objects.</typeparam>
     /// <typeparam name="TKey">The type of the primary key for users and roles.</typeparam>
