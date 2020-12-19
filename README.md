@@ -29,3 +29,9 @@ services.AddDefaultIdentity<MongoIdentityUser>(options => options.SignIn.Require
 Sample .NET Core Project
 
 Unit Tests, including passing Asp.Net Core's IdentitySpecificationBase
+
+## IdentitySpec Tests
+[This issue](https://github.com/dotnet/aspnetcore/issues/27873) shows the spec tests weren't
+publicly released for .NET 5.0.  They are supposed to be, but do not show up on NuGet yet.
+I have added the code manually to the test project until this gets published.
+
