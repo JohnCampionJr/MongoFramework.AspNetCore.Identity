@@ -20,7 +20,7 @@ jobs:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu-latest, macOS-latest, windows-2022]  # As of 2022-02-04, windows-latest >> windows-2019
     steps:
     - name: Configure MongoDB (MacOS)
       if: matrix.os == 'macOS-latest'
@@ -30,16 +30,18 @@ jobs:
       run: sudo systemctl start mongod
     - name: Checkout
       uses: actions/checkout@v2
-# If you want to specify a particular version, use this. Otherwise, will use the Runner's installed version      
-#    - name: Setup .NET Core
-#      uses: actions/setup-dotnet@v1
-#      with:
-#        dotnet-version: 3.1.301      
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:        
+        dotnet-version: |
+          3.1.x
+          5.0.x
+          6.0.x
     - name: Install dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release --no-restore
-    - name: Test 
+    - name: Test
       run: dotnet test --logger trx --results-directory ${{env.BUILD_ARTIFACT_PATH}}/test-results/${{matrix.os}}
     - name: Publish artifacts
       if: ${{ always() }}

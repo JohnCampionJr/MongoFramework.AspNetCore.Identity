@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0; net5.0</TargetFrameworks>
+    <TargetFrameworks>net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
     <AssemblyName>MongoFramework.AspNetCore.Identity</AssemblyName>
     <Title>MongoFramework.AspNetCore.Identity</Title>
     <Description>.Net Core Identity providers for MongoFramework</Description>
@@ -10,22 +10,30 @@
   </PropertyGroup>
 
   <Choose>
+    <When Condition=" '$(TargetFramework)' == 'net6.0' ">
+      <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+        <PackageReference Include="MongoFramework" Version="0.27.0" />
+        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="6.0.1" />
+        <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="6.0.1" />
+      </ItemGroup>
+    </When>
     <When Condition=" '$(TargetFramework)' == 'net5.0' ">
       <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App" />
+        <PackageReference Include="MongoFramework" Version="0.27.0" />
+        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="5.0.1" />
+        <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.1" />
       </ItemGroup>
     </When>
-    <Otherwise>
+    <When Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
       <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+        <PackageReference Include="MongoFramework" Version="0.27.0" />
+        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="5.0.1" />
+        <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.1" />
       </ItemGroup>
-    </Otherwise>
+    </When>
   </Choose>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="5.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.1" />
-    <PackageReference Include="MongoFramework" Version="0.25.0" />
-  </ItemGroup>
 
 </Project>
