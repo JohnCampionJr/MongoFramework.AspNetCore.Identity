@@ -1,4 +1,4 @@
-// Copyright (c) .NET Foundation. All rights reserved.
+﻿// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System.Linq;
@@ -62,14 +62,13 @@ namespace Microsoft.AspNetCore.Identity.Test
         /// <param name="expectedLog">The expected log message.</param>
         public static void VerifyLogMessage(ILogger logger, string expectedLog)
         {
-            var testlogger = logger as ITestLogger;
-            if (testlogger != null)
+            if (logger is ITestLogger testlogger)
             {
                 Assert.Contains(expectedLog, testlogger.LogMessages);
             }
             else
             {
-                Assert.False(true, "No logger registered");
+                Assert.Fail("No logger registered");
             }
         }
     }

@@ -1,4 +1,4 @@
-// Copyright (c) .NET Foundation. All rights reserved.
+﻿// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System;
@@ -80,14 +80,8 @@ namespace Microsoft.AspNetCore.Identity.Test
         /// <returns></returns>
         protected virtual RoleManager<TRole> CreateRoleManager(object context = null, IServiceCollection services = null)
         {
-            if (services == null)
-            {
-                services = new ServiceCollection();
-            }
-            if (context == null)
-            {
-                context = CreateTestContext();
-            }
+            services ??= new ServiceCollection();
+            context ??= CreateTestContext();
             SetupIdentityServices(services, context);
             return services.BuildServiceProvider().GetService<RoleManager<TRole>>();
         }
@@ -139,7 +133,7 @@ namespace Microsoft.AspNetCore.Identity.Test
         private class AlwaysBadValidator : IUserValidator<TUser>, IRoleValidator<TRole>,
             IPasswordValidator<TUser>
         {
-            public static readonly IdentityError ErrorMessage = new IdentityError { Description = "I'm Bad.", Code = "BadValidator" };
+            public static readonly IdentityError ErrorMessage = new() { Description = "I'm Bad.", Code = "BadValidator" };
 
             public Task<IdentityResult> ValidateAsync(UserManager<TUser> manager, TUser user, string password)
             {
@@ -238,7 +232,7 @@ namespace Microsoft.AspNetCore.Identity.Test
             IdentityResultAssert.IsSuccess(await manager.CreateAsync(role));
             IdentityResultAssert.IsSuccess(await manager.CreateAsync(roleSafe));
             Claim[] claims = { new Claim("c", "v"), new Claim("c2", "v2"), new Claim("c2", "v3") };
-            foreach (Claim c in claims)
+            foreach (var c in claims)
             {
                 IdentityResultAssert.IsSuccess(await manager.AddClaimAsync(role, c));
                 IdentityResultAssert.IsSuccess(await manager.AddClaimAsync(roleSafe, c));
@@ -255,12 +249,12 @@ namespace Microsoft.AspNetCore.Identity.Test
             IdentityResultAssert.IsSuccess(await manager.RemoveClaimAsync(role, claims[1]));
             roleClaims = await manager.GetClaimsAsync(role);
             safeRoleClaims = await manager.GetClaimsAsync(roleSafe);
-            Assert.Equal(1, roleClaims.Count);
+            Assert.Single(roleClaims);
             Assert.Equal(3, safeRoleClaims.Count);
             IdentityResultAssert.IsSuccess(await manager.RemoveClaimAsync(role, claims[2]));
             roleClaims = await manager.GetClaimsAsync(role);
             safeRoleClaims = await manager.GetClaimsAsync(roleSafe);
-            Assert.Equal(0, roleClaims.Count);
+            Assert.Empty(roleClaims);
             Assert.Equal(3, safeRoleClaims.Count);
         }
 
@@ -328,7 +322,7 @@ namespace Microsoft.AspNetCore.Identity.Test
                 {
                     IdentityResultAssert.IsSuccess(await manager.CreateAsync(r));
                 }
-                Expression<Func<TRole, bool>> func = RoleNameStartsWithPredicate("CanQuerableRolesTest");
+                var func = RoleNameStartsWithPredicate("CanQuerableRolesTest");
                 Assert.Equal(roles.Count, manager.Roles.Count(func));
                 func = RoleNameEqualsPredicate("bogus");
                 Assert.Null(manager.Roles.FirstOrDefault(func));
@@ -485,7 +479,7 @@ namespace Microsoft.AspNetCore.Identity.Test
             IdentityResultAssert.IsSuccess(await userMgr.CreateAsync(user));
             IdentityResultAssert.IsSuccess(await roleMgr.CreateAsync(role));
             var result = await userMgr.RemoveFromRoleAsync(user, roleName);
-            IdentityResultAssert.IsFailure(result, _errorDescriber.UserNotInRole(roleName));
+            IdentityResultAssert.IsFailure(result, ErrorDescriber.UserNotInRole(roleName));
             IdentityResultAssert.VerifyLogMessage(userMgr.Logger, $"User is not in role {roleName}.");
         }
 
@@ -506,7 +500,7 @@ namespace Microsoft.AspNetCore.Identity.Test
             IdentityResultAssert.IsSuccess(await roleMgr.CreateAsync(role));
             IdentityResultAssert.IsSuccess(await userMgr.AddToRoleAsync(user, roleName));
             Assert.True(await userMgr.IsInRoleAsync(user, roleName));
-            IdentityResultAssert.IsFailure(await userMgr.AddToRoleAsync(user, roleName), _errorDescriber.UserAlreadyInRole(roleName));
+            IdentityResultAssert.IsFailure(await userMgr.AddToRoleAsync(user, roleName), ErrorDescriber.UserAlreadyInRole(roleName));
             IdentityResultAssert.VerifyLogMessage(userMgr.Logger, $"User is already in role {roleName}.");
         }
 
@@ -577,7 +571,7 @@ namespace Microsoft.AspNetCore.Identity.Test
                 roleNameList.Add(await roleManager.GetRoleNameAsync(role));
             }
 
-            for (int i = 0; i < 6; i++)
+            for (var i = 0; i < 6; i++)
             {
                 var user = CreateTestUser();
                 IdentityResultAssert.IsSuccess(await manager.CreateAsync(user));
@@ -593,7 +587,7 @@ namespace Microsoft.AspNetCore.Identity.Test
                 Assert.Equal(3, (await manager.GetUsersInRoleAsync(await roleManager.GetRoleNameAsync(role))).Count);
             }
 
-            Assert.Equal(0, (await manager.GetUsersInRoleAsync("123456")).Count);
+            Assert.Empty((await manager.GetUsersInRoleAsync("123456")));
         }
 
         private List<TRole> GenerateRoles(string namePrefix, int count)

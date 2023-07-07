@@ -36,7 +36,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests
             using (var scoped = provider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             using (var db = scoped.ServiceProvider.GetRequiredService<IUserStore<MongoIdentityUser>>())
             {
-                db.GetType().GenericTypeArguments.Count().ShouldBe(9);
+                db.GetType().GenericTypeArguments.Length.ShouldBe(9);
                 db.ShouldBeOfType<MongoUserStore<MongoIdentityUser, MongoIdentityRole, MongoIdentityDbContext, string, IdentityUserClaim<string>, IdentityUserRole<string>, IdentityUserLogin<string>, IdentityUserToken<string>, IdentityRoleClaim<string>>>();
             }
 
@@ -64,7 +64,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests
             using (var scoped = provider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             using (var db = scoped.ServiceProvider.GetRequiredService<IUserStore<MongoIdentityUser>>())
             {
-                db.GetType().GenericTypeArguments.Count().ShouldBe(6);
+                db.GetType().GenericTypeArguments.Length.ShouldBe(6);
                 db.ShouldBeOfType<MongoUserOnlyStore<MongoIdentityUser, MongoIdentityDbContext, string, IdentityUserClaim<string>, IdentityUserLogin<string>, IdentityUserToken<string>>>();
             }
 
@@ -94,7 +94,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests
             using (var scoped = provider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             using (var db = scoped.ServiceProvider.GetRequiredService<IUserStore<MongoIdentityUser>>())
             {
-                db.GetType().GenericTypeArguments.Count().ShouldBe(4);
+                db.GetType().GenericTypeArguments.Length.ShouldBe(4);
                 db.ShouldBeOfType<MongoUserStore<MongoIdentityUser, MongoIdentityRole, MongoDbContext, string>>();
             }
 
@@ -122,7 +122,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests
             using (var scoped = provider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             using (var db = scoped.ServiceProvider.GetRequiredService<IUserStore<MongoIdentityUser>>())
             {
-                db.GetType().GenericTypeArguments.Count().ShouldBe(3);
+                db.GetType().GenericTypeArguments.Length.ShouldBe(3);
                 db.ShouldBeOfType<MongoUserOnlyStore<MongoIdentityUser, MongoDbContext, string>>();
             }
 
