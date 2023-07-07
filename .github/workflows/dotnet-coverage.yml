@@ -1,12 +1,12 @@
-name: .NET Core Coverage (Windows)
+name: .NET Coverage (Ubuntu)
 
 on:
   push:
-    # branches: 
-    # branches-ignore: 
+    # branches:
+    # branches-ignore:
   pull_request:
-    # branches: 
-    # branches-ignore: 
+    # branches:
+    # branches-ignore:
 
 env:
   # Disable the .NET logo in the console output.
@@ -21,16 +21,20 @@ env:
 jobs:
   build:
 
-    runs-on: windows-latest
-    
+    runs-on: ubuntu-20.04
+
     steps:
+    - name: Configure MongoDB (Ubuntu)
+      run: sudo systemctl start mongod
     - name: Checkout
       uses: actions/checkout@v2
-# If you want to specify a particular version, use this. Otherwise, will use the Runner's installed version      
-#    - name: Setup .NET Core
-#      uses: actions/setup-dotnet@v1
-#      with:
-#        dotnet-version: 3.1.301      
+# If you want to specify a particular version, use this. Otherwise, will use the Runner's installed version
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: |
+          6.0.x
+          7.0.x
     - name: Install dependencies
       run: dotnet restore
     - name: Build
@@ -38,17 +42,16 @@ jobs:
 # These two options cannot be combined because the logger causes duplicate coverage reports to go to CodeCov
 # https://github.com/coverlet-coverage/coverlet/issues/733
 # if you want the test results, best to run separately
-#    - name: Test 
+#    - name: Test
 #      run: dotnet test --logger trx --results-directory ${{env.BUILD_ARTIFACT_PATH}}/test-results
     - name: Test with coverage
-      run: dotnet test --results-directory ${{env.BUILD_ARTIFACT_PATH}}/coverage --collect "XPlat Code Coverage" --settings CodeCoverage.runsettings      
+      run: dotnet test --results-directory ${{env.BUILD_ARTIFACT_PATH}}/coverage --collect "XPlat Code Coverage" --settings CodeCoverage.runsettings
     - name: Upload coverage report
       uses: codecov/codecov-action@v1.0.13
       with:
         token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-        # bash on windows does not like absolute paths like D:\
-        directory: ./build-artifacts/coverage/
-        path_to_write_report: ./build-artifacts/coverage/codecov_report
+        directory: ${{env.BUILD_ARTIFACT_PATH}}/coverage/
+        path_to_write_report: ${{env.BUILD_ARTIFACT_PATH}}/coverage/codecov_report
         fail_ci_if_error: false
     - name: Publish artifacts
       if: ${{ always() }}

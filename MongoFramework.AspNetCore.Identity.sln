@@ -1,7 +1,6 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30611.23
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{361C3E41-652C-480A-B249-58CEEB13DD07}"
 	ProjectSection(SolutionItems) = preProject
@@ -16,6 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoFramework.AspNetCore.I
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "global", "global", "{A8F5FC10-E567-49AB-90DD-77BCAAC16987}"
 	ProjectSection(SolutionItems) = preProject
+		.codacy.yml = .codacy.yml
 		.editorconfig = .editorconfig
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
@@ -25,9 +25,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "global", "global", "{A8F5FC
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{55F01A81-369B-4207-B216-D1E7479696CE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{55F01A81-369B-4207-B216-D1E7479696CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity31Sample", "samples\Identity31Sample\Identity31Sample.csproj", "{A6AE19A9-1A25-44F9-A3AF-0FD8A5E3DD80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net6Example", "samples\Net6Example\Net6Example.csproj", "{A6AE19A9-1A25-44F9-A3AF-0FD8A5E3DD80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

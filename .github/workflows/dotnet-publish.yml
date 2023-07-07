@@ -1,12 +1,12 @@
-name: .NET Core Publish (Ubuntu)
+name: .NET Publish (Ubuntu)
 
 on:
  #push:
-    # branches: 
-    # branches-ignore: 
+    # branches:
+    # branches-ignore:
   #pull_request:
-    # branches: 
-    # branches-ignore: 
+    # branches:
+    # branches-ignore:
   release:
     branches: [ main ]
     types: [ published ]
@@ -25,32 +25,31 @@ jobs:
 
   build:
 
-    runs-on: ubuntu-latest
-   
+    runs-on: ubuntu-20.04
+
     steps:
     - name: Configure MongoDB (Ubuntu)
       run: sudo systemctl start mongod
     - name: Checkout
       uses: actions/checkout@v2
-# If you want to specify a particular version, use this. Otherwise, will use the Runner's installed version      
+# If you want to specify a particular version, use this. Otherwise, will use the Runner's installed version
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
-      with:        
+      with:
         dotnet-version: |
-          3.1.x
-          5.0.x
           6.0.x
+          7.0.x
     - name: Get Build Version
       id: getversion
       uses: ./.github/workflows/get-version
     - name: Install dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --configuration Release --no-restore /p:Version=${{ steps.getversion.outputs.build-version }} 
-    - name: Test 
+      run: dotnet build --configuration Release --no-restore /p:Version=${{ steps.getversion.outputs.build-version }}
+    - name: Test
       run: dotnet test --logger trx --results-directory ${{env.BUILD_ARTIFACT_PATH}}/test-results
     - name: Pack
-      run: dotnet pack -c Release --no-build --include-symbols /p:SymbolPackageFormat=snupkg /p:Version=${{ steps.getversion.outputs.build-version }}  /p:PackageOutputPath=${{env.BUILD_ARTIFACT_PATH}}/packages 
+      run: dotnet pack -c Release --no-build --include-symbols /p:SymbolPackageFormat=snupkg /p:Version=${{ steps.getversion.outputs.build-version }}  /p:PackageOutputPath=${{env.BUILD_ARTIFACT_PATH}}/packages
     - name: Publish to GitHub Packages
       run: dotnet nuget push ${{env.BUILD_ARTIFACT_PATH}}/packages/*.nupkg -s https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json -k ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
 
