@@ -55,6 +55,6 @@ jobs:
         fail_ci_if_error: false
     - name: Publish artifacts
       if: ${{ always() }}
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         path: ${{env.BUILD_ARTIFACT_PATH}}

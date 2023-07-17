@@ -42,6 +42,6 @@ jobs:
       run: dotnet test --logger trx --results-directory ${{env.BUILD_ARTIFACT_PATH}}/test-results/${{matrix.os}}
     - name: Publish artifacts
       if: ${{ always() }}
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         path: ${{env.BUILD_ARTIFACT_PATH}}
