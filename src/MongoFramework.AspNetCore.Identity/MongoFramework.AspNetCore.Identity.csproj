@@ -14,16 +14,16 @@
       <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App" />
         <PackageReference Include="MongoFramework" Version="0.29.0" />
-        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.14" />
-        <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.14" />
+        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.15" />
+        <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.15" />
       </ItemGroup>
     </When>
     <When Condition=" '$(TargetFramework)' == 'net6.0' ">
       <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App" />
         <PackageReference Include="MongoFramework" Version="0.29.0" />
-        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="6.0.25" />
-        <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="6.0.25" />
+        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="6.0.26" />
+        <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="6.0.26" />
       </ItemGroup>
     </When>
   </Choose>
