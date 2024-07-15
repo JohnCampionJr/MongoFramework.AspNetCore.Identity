@@ -22,8 +22,8 @@
       <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App" />
         <PackageReference Include="MongoFramework" Version="0.29.0" />
-        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="6.0.31" />
-        <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="6.0.31" />
+        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="6.0.32" />
+        <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="6.0.32" />
       </ItemGroup>
     </When>
   </Choose>
