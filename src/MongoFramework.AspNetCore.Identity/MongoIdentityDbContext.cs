@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace MongoFramework.AspNetCore.Identity
 {
@@ -87,8 +88,8 @@ namespace MongoFramework.AspNetCore.Identity
         public MongoIdentityDbContext(IMongoDbConnection connection) : base(connection) { }
 
         /// <summary>
-        /// Gets or sets the <see cref="MongoDbSet{TEntity}"/> of roles.
+        /// Gets or sets the <see cref="DbSet{TEntity}"/> of roles.
         /// </summary>
-        public virtual MongoDbSet<TRole> Roles { get; set; }
+        public virtual DbSet<TRole> Roles { get; set; }
     }
 }

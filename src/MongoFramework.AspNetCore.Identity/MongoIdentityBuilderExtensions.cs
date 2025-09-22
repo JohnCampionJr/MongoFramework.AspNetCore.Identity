@@ -3,6 +3,7 @@
 using System;
 using System.Reflection;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using MongoFramework;
 using MongoFramework.AspNetCore.Identity;
@@ -22,7 +23,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="builder">The <see cref="IdentityBuilder"/> instance this method extends.</param>
         /// <returns>The <see cref="IdentityBuilder"/> instance this method extends.</returns>
         public static IdentityBuilder AddMongoFrameworkStores<TContext>(this IdentityBuilder builder)
-            where TContext : IMongoDbContext
+            where TContext : DbContext
         {
             AddStores(builder.Services, builder.UserType, builder.RoleType, typeof(TContext));
             return builder;

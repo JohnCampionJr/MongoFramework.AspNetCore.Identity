@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using MongoFramework;
 using MongoFramework.AspNetCore.Identity;
 
@@ -9,12 +10,12 @@ namespace Microsoft.Extensions.DependencyInjection
     public static class MongoIdentityServiceCollectionExtensions
     {
         public static IdentityBuilder AddDefaultMongoIdentity<TUser>(this IServiceCollection services) where TUser : MongoIdentityUser
-            => AddDefaultMongoIdentity<TUser, MongoDbContext>(services, _ => { });
+            => AddDefaultMongoIdentity<TUser, DbContext>(services, _ => { });
 
         public static IdentityBuilder AddDefaultMongoIdentity<TUser>(this IServiceCollection services, Action<IdentityOptions> configureOptions) where TUser : MongoIdentityUser
-            => AddDefaultMongoIdentity<TUser, MongoDbContext>(services, configureOptions);
+            => AddDefaultMongoIdentity<TUser, DbContext>(services, configureOptions);
 
-        public static IdentityBuilder AddDefaultMongoIdentity<TUser, TContext>(this IServiceCollection services) where TUser : MongoIdentityUser where TContext : MongoDbContext
+        public static IdentityBuilder AddDefaultMongoIdentity<TUser, TContext>(this IServiceCollection services) where TUser : MongoIdentityUser where TContext : DbContext
             => AddDefaultMongoIdentity<TUser, TContext>(services, _ => { });
 
         public static IdentityBuilder AddDefaultMongoIdentity<TUser, TContext>(this IServiceCollection services, Action<IdentityOptions> configureOptions) where TUser : MongoIdentityUser where TContext : MongoDbContext
@@ -36,10 +37,10 @@ namespace Microsoft.Extensions.DependencyInjection
         }
 
         public static IdentityBuilder AddMongoIdentity<TUser, TRole>(this IServiceCollection services) where TUser : MongoIdentityUser where TRole : MongoIdentityRole
-            => AddMongoIdentity<TUser, TRole, MongoDbContext>(services, _ => { });
+            => AddMongoIdentity<TUser, TRole, DbContext>(services, _ => { });
 
         public static IdentityBuilder AddMongoIdentity<TUser, TRole>(this IServiceCollection services, Action<IdentityOptions> configureOptions) where TUser : MongoIdentityUser where TRole : MongoIdentityRole
-            => AddMongoIdentity<TUser, TRole, MongoDbContext>(services, configureOptions);
+            => AddMongoIdentity<TUser, TRole, DbContext>(services, configureOptions);
 
         public static IdentityBuilder AddMongoIdentity<TUser, TRole, TContext>(this IServiceCollection services) where TUser : MongoIdentityUser where TContext : MongoDbContext where TRole : MongoIdentityRole
             => AddMongoIdentity<TUser, TRole, TContext>(services, _ => { });

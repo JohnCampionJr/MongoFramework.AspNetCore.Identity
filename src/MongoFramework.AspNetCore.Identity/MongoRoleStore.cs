@@ -6,9 +6,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using MongoFramework.Infrastructure;
-using MongoFramework.Linq;
-using MongoFramework.Utilities;
+using Microsoft.EntityFrameworkCore;
 
 namespace MongoFramework.AspNetCore.Identity
 {
@@ -16,7 +14,7 @@ namespace MongoFramework.AspNetCore.Identity
     /// Creates a new instance of a persistence store for roles.
     /// </summary>
     /// <typeparam name="TRole">The type of the class representing a role</typeparam>
-    public class MongoRoleStore<TRole> : MongoRoleStore<TRole, MongoDbContext, string>
+    public class MongoRoleStore<TRole> : MongoRoleStore<TRole, DbContext, string>
         where TRole : MongoIdentityRole<string>
     {
         /// <summary>
@@ -24,7 +22,7 @@ namespace MongoFramework.AspNetCore.Identity
         /// </summary>
         /// <param name="context">The <see cref="DbContext"/>.</param>
         /// <param name="describer">The <see cref="IdentityErrorDescriber"/>.</param>
-        public MongoRoleStore(MongoDbContext context, IdentityErrorDescriber describer = null) : base(context,
+        public MongoRoleStore(DbContext context, IdentityErrorDescriber describer = null) : base(context,
             describer)
         {
         }
@@ -37,7 +35,7 @@ namespace MongoFramework.AspNetCore.Identity
     /// <typeparam name="TContext">The type of the data context class used to access the store.</typeparam>
     public class MongoRoleStore<TRole, TContext> : MongoRoleStore<TRole, TContext, string>
         where TRole : MongoIdentityRole<string>
-        where TContext : MongoDbContext
+        where TContext : DbContext
     {
         /// <summary>
         /// Constructs a new instance of <see cref="RoleStore{TRole, TContext}"/>.
@@ -59,7 +57,7 @@ namespace MongoFramework.AspNetCore.Identity
         IRoleClaimStore<TRole>
         where TRole : MongoIdentityRole<TKey>
         where TKey : IEquatable<TKey>
-        where TContext : MongoDbContext
+        where TContext : DbContext
     {
         /// <summary>
         /// Constructs a new instance of <see cref="RoleStore{TRole, TContext, TKey}"/>.
@@ -82,7 +80,7 @@ namespace MongoFramework.AspNetCore.Identity
         IRoleClaimStore<TRole>
         where TRole : MongoIdentityRole<TKey>
         where TKey : IEquatable<TKey>
-        where TContext : MongoDbContext
+        where TContext : DbContext
         where TUserRole : IdentityUserRole<TKey>, new()
         where TRoleClaim : IdentityRoleClaim<TKey>, new()
     {
@@ -300,7 +298,7 @@ namespace MongoFramework.AspNetCore.Identity
             // would like to get existing entry if tracked, but need id to find it
             if (role != null)
             {
-                var tracked = Context.ChangeTracker.GetEntryById<TRole>(role.Id);
+                var tracked = Context.Entry(role);
                 if (tracked != null)
                 {
                     return tracked.Entity as TRole;
@@ -420,7 +418,7 @@ namespace MongoFramework.AspNetCore.Identity
         /// </summary>
         public virtual IQueryable<TRole> Roles => Context.Set<TRole>();
 
-        private IMongoDbSet<TRole> RolesSet => Context.Set<TRole>();
+        private DbSet<TRole> RolesSet => Context.Set<TRole>();
 
         /// <summary>
         /// Creates an entity representing a role claim.

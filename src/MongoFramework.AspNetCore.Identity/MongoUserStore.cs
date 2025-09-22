@@ -6,8 +6,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using MongoFramework.Linq;
-using MongoFramework.Utilities;
+using Microsoft.EntityFrameworkCore;
 
 namespace MongoFramework.AspNetCore.Identity
 {
@@ -22,14 +21,14 @@ namespace MongoFramework.AspNetCore.Identity
         /// </summary>
         /// <param name="context">The <see cref="DbContext"/>.</param>
         /// <param name="describer">The <see cref="IdentityErrorDescriber"/>.</param>
-        public MongoUserStore(MongoDbContext context, IdentityErrorDescriber describer = null) : base(context, describer) { }
+        public MongoUserStore(DbContext context, IdentityErrorDescriber describer = null) : base(context, describer) { }
     }
 
     /// <summary>
     /// Creates a new instance of a persistence store for the specified user type.
     /// </summary>
     /// <typeparam name="TUser">The type representing a user.</typeparam>
-    public class MongoUserStore<TUser> : MongoUserStore<TUser, MongoIdentityRole, MongoDbContext, string>
+    public class MongoUserStore<TUser> : MongoUserStore<TUser, MongoIdentityRole, DbContext, string>
         where TUser : MongoIdentityUser<string>, new()
     {
         /// <summary>
@@ -37,7 +36,7 @@ namespace MongoFramework.AspNetCore.Identity
         /// </summary>
         /// <param name="context">The <see cref="DbContext"/>.</param>
         /// <param name="describer">The <see cref="IdentityErrorDescriber"/>.</param>
-        public MongoUserStore(MongoDbContext context, IdentityErrorDescriber describer = null) : base(context, describer) { }
+        public MongoUserStore(DbContext context, IdentityErrorDescriber describer = null) : base(context, describer) { }
     }
 
     /// <summary>
@@ -49,7 +48,7 @@ namespace MongoFramework.AspNetCore.Identity
     public class MongoUserStore<TUser, TRole, TContext> : MongoUserStore<TUser, TRole, TContext, string>
         where TUser : MongoIdentityUser<string>
         where TRole : MongoIdentityRole<string>
-        where TContext : MongoDbContext
+        where TContext : DbContext
     {
         /// <summary>
         /// Constructs a new instance of <see cref="UserStore{TUser, TRole, TContext}"/>.
@@ -69,7 +68,7 @@ namespace MongoFramework.AspNetCore.Identity
     public class MongoUserStore<TUser, TRole, TContext, TKey> : MongoUserStore<TUser, TRole, TContext, TKey, IdentityUserClaim<TKey>, IdentityUserRole<TKey>, IdentityUserLogin<TKey>, IdentityUserToken<TKey>, IdentityRoleClaim<TKey>>
         where TUser : MongoIdentityUser<TKey>
         where TRole : MongoIdentityRole<TKey>
-        where TContext : MongoDbContext
+        where TContext : DbContext
         where TKey : IEquatable<TKey>
     {
         /// <summary>
@@ -98,7 +97,7 @@ namespace MongoFramework.AspNetCore.Identity
         IProtectedUserStore<TUser>
         where TUser : MongoIdentityUser<TKey>
         where TRole : IdentityRole<TKey>
-        where TContext : MongoDbContext
+        where TContext : DbContext
         where TKey : IEquatable<TKey>
         where TUserClaim : IdentityUserClaim<TKey>, new()
         where TUserRole : IdentityUserRole<TKey>, new()
@@ -123,8 +122,8 @@ namespace MongoFramework.AspNetCore.Identity
         /// </summary>
         public virtual TContext Context { get; private set; }
 
-        private IMongoDbSet<TUser> UsersSet { get { return Context.Set<TUser>(); } }
-        private IMongoDbSet<TRole> Roles { get { return Context.Set<TRole>(); } }
+        private DbSet<TUser> UsersSet { get { return Context.Set<TUser>(); } }
+        private DbSet<TRole> Roles { get { return Context.Set<TRole>(); } }
 
         /// <summary>
         /// Gets or sets a flag indicating if changes should be persisted after CreateAsync, UpdateAsync and DeleteAsync are called.
@@ -231,7 +230,7 @@ namespace MongoFramework.AspNetCore.Identity
             // would like to get existing entry if tracked, but need id to find it
             if (user != null)
             {
-                var tracked = Context.ChangeTracker.GetEntryById<TUser>(user.Id);
+                var tracked = Context.Entry(user);
                 if (tracked != null)
                 {
                     return tracked.Entity as TUser;
@@ -573,7 +572,7 @@ namespace MongoFramework.AspNetCore.Identity
             // would like to get existing entry if tracked, but need id to find it
             if (user != null)
             {
-                var tracked = Context.ChangeTracker.GetEntryById<TUser>(user.Id);
+                var tracked = Context.Entry(user);
                 if (tracked != null)
                 {
                     return tracked.Entity as TUser;

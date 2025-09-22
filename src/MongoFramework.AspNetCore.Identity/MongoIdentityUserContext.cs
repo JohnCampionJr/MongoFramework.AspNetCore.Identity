@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace MongoFramework.AspNetCore.Identity
 {
@@ -57,7 +58,7 @@ namespace MongoFramework.AspNetCore.Identity
     /// <typeparam name="TUserClaim">The type of the user claim object.</typeparam>
     /// <typeparam name="TUserLogin">The type of the user login object.</typeparam>
     /// <typeparam name="TUserToken">The type of the user token object.</typeparam>
-    public abstract class MongoIdentityUserContext<TUser, TKey, TUserClaim, TUserLogin, TUserToken> : MongoDbContext
+    public abstract class MongoIdentityUserContext<TUser, TKey, TUserClaim, TUserLogin, TUserToken> : DbContext
         where TUser : IdentityUser<TKey>
         where TKey : IEquatable<TKey>
         where TUserClaim : IdentityUserClaim<TKey>
@@ -71,9 +72,9 @@ namespace MongoFramework.AspNetCore.Identity
         public MongoIdentityUserContext(IMongoDbConnection connection) : base(connection) { }
 
         /// <summary>
-        /// Gets or sets the <see cref="MongoDbSet{TEntity}"/> of Users.
+        /// Gets or sets the <see cref="DbSet{TEntity}"/> of Users.
         /// </summary>
-        public virtual MongoDbSet<TUser> Users { get; set; }
+        public virtual DbSet<TUser> Users { get; set; }
 
     }
 }

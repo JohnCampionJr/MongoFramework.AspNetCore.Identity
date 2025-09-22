@@ -5,8 +5,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using MongoFramework.Linq;
-using MongoFramework.Utilities;
+using Microsoft.EntityFrameworkCore;
 
 namespace MongoFramework.AspNetCore.Identity
 {
@@ -15,14 +14,14 @@ namespace MongoFramework.AspNetCore.Identity
     /// Creates a new instance of a persistence store for the specified user type.
     /// </summary>
     /// <typeparam name="TUser">The type representing a user.</typeparam>
-    public class MongoUserOnlyStore<TUser> : MongoUserOnlyStore<TUser, MongoDbContext> where TUser : MongoIdentityUser<string>, new()
+    public class MongoUserOnlyStore<TUser> : MongoUserOnlyStore<TUser, DbContext> where TUser : MongoIdentityUser<string>, new()
     {
         /// <summary>
         /// Constructs a new instance of <see cref="MongoUserOnlyStore{TUser}"/>.
         /// </summary>
         /// <param name="context">The <see cref="MongoDbContext"/>.</param>
         /// <param name="describer">The <see cref="IdentityErrorDescriber"/>.</param>
-        public MongoUserOnlyStore(MongoDbContext context, IdentityErrorDescriber describer = null) : base(context, describer) { }
+        public MongoUserOnlyStore(DbContext context, IdentityErrorDescriber describer = null) : base(context, describer) { }
     }
 
     /// <summary>
@@ -32,7 +31,7 @@ namespace MongoFramework.AspNetCore.Identity
     /// <typeparam name="TContext">The type of the data context class used to access the store.</typeparam>
     public class MongoUserOnlyStore<TUser, TContext> : MongoUserOnlyStore<TUser, TContext, string>
         where TUser : MongoIdentityUser<string>
-        where TContext : MongoDbContext
+        where TContext : DbContext
     {
         /// <summary>
         /// Constructs a new instance of <see cref="MongoUserOnlyStore{TUser, TContext}"/>.
@@ -50,7 +49,7 @@ namespace MongoFramework.AspNetCore.Identity
     /// <typeparam name="TKey">The type of the primary key for a role.</typeparam>
     public class MongoUserOnlyStore<TUser, TContext, TKey> : MongoUserOnlyStore<TUser, TContext, TKey, IdentityUserClaim<TKey>, IdentityUserLogin<TKey>, IdentityUserToken<TKey>>
         where TUser : MongoIdentityUser<TKey>
-        where TContext : MongoDbContext
+        where TContext : DbContext
         where TKey : IEquatable<TKey>
     {
         /// <summary>
@@ -87,7 +86,7 @@ namespace MongoFramework.AspNetCore.Identity
             IUserTwoFactorRecoveryCodeStore<TUser>,
             IProtectedUserStore<TUser>
             where TUser : MongoIdentityUser<TKey>
-            where TContext : MongoDbContext
+            where TContext : DbContext
             where TKey : IEquatable<TKey>
             where TUserClaim : IdentityUserClaim<TKey>, new()
             where TUserLogin : IdentityUserLogin<TKey>, new()
@@ -113,7 +112,7 @@ namespace MongoFramework.AspNetCore.Identity
         /// <summary>
         /// DbSet of users.
         /// </summary>
-        protected IMongoDbSet<TUser> UsersSet { get { return Context.Set<TUser>(); } }
+        protected DbSet<TUser> UsersSet { get { return Context.Set<TUser>(); } }
 
         /// <summary>
         /// Gets or sets a flag indicating if changes should be persisted after CreateAsync, UpdateAsync and DeleteAsync are called.
@@ -221,7 +220,7 @@ namespace MongoFramework.AspNetCore.Identity
             // would like to get existing entry if tracked, but need id to find it
             if (user != null)
             {
-                var tracked = Context.ChangeTracker.GetEntryById<TUser>(user.Id);
+                var tracked = Context.Entry(user);
                 if (tracked != null)
                 {
                     return tracked.Entity as TUser;
@@ -447,7 +446,7 @@ namespace MongoFramework.AspNetCore.Identity
             // would like to get existing entry if tracked, but need id to find it
             if (user != null)
             {
-                var tracked = Context.ChangeTracker.GetEntryById<TUser>(user.Id);
+                var tracked = Context.Entry(user);
                 if (tracked != null)
                 {
                     return tracked.Entity as TUser;

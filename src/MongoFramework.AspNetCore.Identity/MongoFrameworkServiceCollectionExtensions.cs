@@ -1,7 +1,8 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using MongoFramework;
-using MongoFramework.Utilities;
+using MongoFramework.AspNetCore.Identity;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
@@ -13,7 +14,7 @@ namespace Microsoft.Extensions.DependencyInjection
             Action<MongoDbContextOptions> contextOptionsAction = null,
             ServiceLifetime contextLifetime = ServiceLifetime.Scoped,
             ServiceLifetime connectionLifetime = ServiceLifetime.Scoped)
-            where TContext : IMongoDbContext
+            where TContext : DbContext
             => AddMongoDbContext<TContext, TContext>(serviceCollection, contextOptionsAction, contextLifetime, connectionLifetime);
 
         public static IServiceCollection AddMongoDbContext<TContextService, TContextImplementation>(
@@ -21,7 +22,7 @@ namespace Microsoft.Extensions.DependencyInjection
             Action<MongoDbContextOptions> contextOptionsAction = null,
             ServiceLifetime contextLifetime = ServiceLifetime.Scoped,
             ServiceLifetime connectionLifetime = ServiceLifetime.Scoped)
-            where TContextImplementation : IMongoDbContext, TContextService
+            where TContextImplementation : DbContext, TContextService
         {
             Check.NotNull(serviceCollection, nameof(serviceCollection));
 
