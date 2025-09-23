@@ -33,7 +33,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
         {
             var context = new TestContext(GetConnection());
             var store = new MongoUserOnlyStore<TestUser>(context);
-            var user = await store.FindByIdAsync("a1");
+            var user = await store.FindByIdAsync(TestIds.UserId1);
 
             await store.RemoveLoginAsync(user, "provider1", "provider-key");
 
@@ -45,14 +45,14 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
         {
             var context = new TestContext(GetConnection());
             var store = new MongoUserOnlyStore<TestUser>(context);
-            var user = await store.FindByIdAsync("a1");
+            var user = await store.FindByIdAsync(TestIds.UserId1);
 
             await store.RemoveLoginAsync(user, "provider1", "provider-key");
             await store.UpdateAsync(user);
 
             context = new TestContext(GetConnection());
             store = new MongoUserOnlyStore<TestUser>(context);
-            user = await store.FindByIdAsync("a1");
+            user = await store.FindByIdAsync(TestIds.UserId1);
 
             user.Logins.Count.ShouldBe(0);
         }

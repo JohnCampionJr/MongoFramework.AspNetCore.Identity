@@ -43,7 +43,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserStoreTests
         {
             var context = new TestContext(GetConnection());
             var store = new MongoUserStore<TestUser>(context);
-            var tracked = await store.FindByIdAsync("b2");
+            var tracked = await store.FindByIdAsync(TestIds.UserId2);
             tracked.CustomData = "updated";
 
             var result = await store.FindByNameAsync("USER NAME2");

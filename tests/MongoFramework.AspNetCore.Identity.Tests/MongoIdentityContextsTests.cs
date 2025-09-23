@@ -1,12 +1,22 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 using MongoFramework.AspNetCore.Identity.Tests.TestClasses;
 using Shouldly;
 using Xunit;
 
 namespace MongoFramework.AspNetCore.Identity.Tests
 {
+    public static class TestIds
+    {
+        public static readonly string RoleId1 = ObjectId.GenerateNewId().ToString();
+        public static readonly string RoleId2 = ObjectId.GenerateNewId().ToString();
+        public static readonly string RoleId3 = ObjectId.GenerateNewId().ToString();
+        public static readonly string UserId1 = ObjectId.GenerateNewId().ToString();
+        public static readonly string UserId2 = ObjectId.GenerateNewId().ToString();
+        public static readonly string UserId3 = ObjectId.GenerateNewId().ToString();
+    }
     public class MongoIdentityContextsTests : TestBase, IAsyncLifetime
     {
 
@@ -14,18 +24,18 @@ namespace MongoFramework.AspNetCore.Identity.Tests
 
         public async Task InitializeAsync()
         {
-            var context = new TestContext(GetConnection());
+            var context = new MongoIdentityDbContext(GetConnection());
             var store = new MongoUserStore<MongoIdentityUser>(context);
-
-            context.Roles.Add(new MongoIdentityRole { Id = "rid1", Name = "Role 1" });
-            context.Roles.Add(new MongoIdentityRole { Id = "rid2", Name = "Role 2" });
-            context.Roles.Add(new MongoIdentityRole { Id = "rid3", Name = "Role 3" });
+            
+            context.Roles.Add(new MongoIdentityRole { Id = TestIds.RoleId1, Name = "Role 1" });
+            context.Roles.Add(new MongoIdentityRole { Id = TestIds.RoleId2, Name = "Role 2" });
+            context.Roles.Add(new MongoIdentityRole { Id = TestIds.RoleId3, Name = "Role 3" });
 
             await context.SaveChangesAsync();
 
             var user = TestUser.First;
-            user.Roles.Add("rid1");
-            user.Roles.Add("rid2");
+            user.Roles.Add(TestIds.RoleId1);
+            user.Roles.Add(TestIds.RoleId2);
             await store.CreateAsync(user);
 
         }

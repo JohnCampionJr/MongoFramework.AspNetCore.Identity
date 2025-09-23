@@ -36,7 +36,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
             var context = new TestContext(GetConnection());
             var store = new MongoUserOnlyStore<TestUser>(context);
 
-            var result = await store.FindByIdAsync("b2");
+            var result = await store.FindByIdAsync(TestIds.UserId2);
 
             result.ShouldNotBeNull();
             result.UserName.ShouldBe("User Name2");

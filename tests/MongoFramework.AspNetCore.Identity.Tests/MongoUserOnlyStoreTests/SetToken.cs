@@ -29,7 +29,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
         {
             var context = new TestContext(GetConnection());
             var store = new MongoUserOnlyStore<TestUser>(context);
-            var user = await store.FindByIdAsync("a1");
+            var user = await store.FindByIdAsync(TestIds.UserId1);
 
             await store.SetTokenAsync(user, "provider", "name", "token-value", default);
 
@@ -42,7 +42,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
         {
             var context = new TestContext(GetConnection());
             var store = new MongoUserOnlyStore<TestUser>(context);
-            var user = await store.FindByIdAsync("a1");
+            var user = await store.FindByIdAsync(TestIds.UserId1);
 
             await store.SetTokenAsync(user, "provider", "name", "token-value", default);
 
@@ -50,7 +50,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 
             context = new TestContext(GetConnection());
             store = new MongoUserOnlyStore<TestUser>(context);
-            user = await store.FindByIdAsync("a1");
+            user = await store.FindByIdAsync(TestIds.UserId1);
 
             user.Tokens.Count.ShouldBe(1);
             user.Tokens[0].Value.ShouldBe("token-value");

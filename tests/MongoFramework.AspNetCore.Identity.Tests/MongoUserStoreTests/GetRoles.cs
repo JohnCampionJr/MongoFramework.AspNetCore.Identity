@@ -39,7 +39,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
         {
             var context = new TestContext(GetConnection());
             var store = new MongoUserStore<TestUser>(context);
-            var user = await store.FindByIdAsync("a1");
+            var user = await store.FindByIdAsync(TestIds.UserId1);
 
             var roles = await store.GetRolesAsync(user);
 

@@ -30,7 +30,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
         {
             var context = new TestContext(GetConnection());
             var store = new MongoUserOnlyStore<TestUser>(context);
-            var user = await store.FindByIdAsync("a1");
+            var user = await store.FindByIdAsync(TestIds.UserId1);
 
             user.CustomData = "new-data";
             var result = await store.UpdateAsync(user);
@@ -44,7 +44,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
             var context = new TestContext(GetConnection());
             var store = new MongoUserOnlyStore<TestUser>(context);
 
-            var user = await store.FindByIdAsync("a1");
+            var user = await store.FindByIdAsync(TestIds.UserId1);
 
             user.CustomData = "new-data";
             await store.UpdateAsync(user);

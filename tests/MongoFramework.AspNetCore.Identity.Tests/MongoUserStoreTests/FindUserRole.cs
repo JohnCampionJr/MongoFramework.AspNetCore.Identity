@@ -30,15 +30,15 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserStoreTests
             var context = new TestContext(GetConnection());
             var store = new MongoUserStore<TestUser>(context);
 
-            context.Roles.Add(new MongoIdentityRole { Id = "rid1", Name = "Role 1" });
-            context.Roles.Add(new MongoIdentityRole { Id = "rid2", Name = "Role 2" });
-            context.Roles.Add(new MongoIdentityRole { Id = "rid3", Name = "Role 3" });
+            context.Roles.Add(new MongoIdentityRole { Id = TestIds.RoleId1, Name = "Role 1" });
+            context.Roles.Add(new MongoIdentityRole { Id = TestIds.RoleId2, Name = "Role 2" });
+            context.Roles.Add(new MongoIdentityRole { Id = TestIds.RoleId3, Name = "Role 3" });
 
             await context.SaveChangesAsync();
 
             var user = TestUser.First;
-            user.Roles.Add("rid1");
-            user.Roles.Add("rid2");
+            user.Roles.Add(TestIds.RoleId1);
+            user.Roles.Add(TestIds.RoleId2);
             await store.CreateAsync(user);
 
         }
@@ -51,12 +51,11 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserStoreTests
             var context = new TestContext(GetConnection());
             var store = new TestStore(context);
 
-            var role = await store.ExposeFindUserRoleAsync("a1", "rid1");
+            var role = await store.ExposeFindUserRoleAsync(TestIds.UserId1, TestIds.RoleId1);
 
             role.ShouldNotBeNull();
-            role.RoleId.ShouldBe("rid1");
-            role.UserId.ShouldBe("a1");
-        }
+            role.RoleId.ShouldBe(TestIds.RoleId1);
+            role.UserId.ShouldBe(TestIds.UserId1);        }
 
         [Fact]
         public async Task FindUserRoleFailsWithInvalidRole()

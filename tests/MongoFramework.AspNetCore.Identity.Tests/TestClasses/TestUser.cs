@@ -1,4 +1,6 @@
-﻿namespace MongoFramework.AspNetCore.Identity.Tests.TestClasses
+﻿using MongoDB.Bson;
+
+namespace MongoFramework.AspNetCore.Identity.Tests.TestClasses
 {
     public class TestUser : MongoIdentityUser
     {
@@ -6,7 +8,7 @@
 
         public static TestUser First => new TestUser
         {
-            Id = "a1",
+            Id = TestIds.UserId1,
             Email = "test1@testing.com",
             UserName = "User Name1",
             CustomData = "Some Info 1",
@@ -15,7 +17,7 @@
         };
         public static TestUser Second => new TestUser
         {
-            Id = "b2",
+            Id = TestIds.UserId2,
             Email = "test2@testing.com",
             UserName = "User Name2",
             CustomData = "Some Info 2",
@@ -24,7 +26,7 @@
         };
         public static TestUser Third => new TestUser
         {
-            Id = "c3",
+            Id = TestIds.UserId3,
             Email = "test3@testing.com",
             UserName = "User Name3",
             CustomData = "Some Info 3",

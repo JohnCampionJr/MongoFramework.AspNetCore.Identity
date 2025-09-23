@@ -29,7 +29,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
         {
             var context = new TestContext(GetConnection());
             var store = new MongoUserOnlyStore<TestUser>(context);
-            var user = await store.FindByIdAsync("a1");
+            var user = await store.FindByIdAsync(TestIds.UserId1);
 
             await store.AddClaimsAsync(user,
                 new[]
@@ -47,7 +47,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
         {
             var context = new TestContext(GetConnection());
             var store = new MongoUserOnlyStore<TestUser>(context);
-            var user = await store.FindByIdAsync("a1");
+            var user = await store.FindByIdAsync(TestIds.UserId1);
 
             await store.AddClaimsAsync(user,
                 new[]
@@ -60,7 +60,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 
             context = new TestContext(GetConnection());
             store = new MongoUserOnlyStore<TestUser>(context);
-            user = await store.FindByIdAsync("a1");
+            user = await store.FindByIdAsync(TestIds.UserId1);
 
             user.Claims.Count.ShouldBe(2);
             user.Claims[0].ClaimType.ShouldBe("type");

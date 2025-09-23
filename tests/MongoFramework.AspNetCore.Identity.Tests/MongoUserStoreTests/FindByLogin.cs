@@ -55,7 +55,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserStoreTests
             var user = await store.FindByLoginAsync("provider3", "provider-key");
 
             user.ShouldNotBeNull();
-            user.Id.ShouldBe("b2");
+            user.Id.ShouldBe(TestIds.UserId2);
         }
 
         [Fact]
@@ -64,10 +64,10 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserStoreTests
             var context = new TestContext(GetConnection());
             var store = new TestStore(context);
 
-            var login = await store.ExposeFindUserLoginAsync("a1", "provider2", "provider-key").ConfigureAwait(false);
+            var login = await store.ExposeFindUserLoginAsync(TestIds.UserId1, "provider2", "provider-key").ConfigureAwait(false);
 
             login.ShouldNotBeNull();
-            login.UserId.ShouldBe("a1");
+            login.UserId.ShouldBe(TestIds.UserId1);
             login.LoginProvider.ShouldBe("provider2");
         }
 

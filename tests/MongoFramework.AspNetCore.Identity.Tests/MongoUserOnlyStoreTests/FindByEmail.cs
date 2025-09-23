@@ -42,7 +42,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
         {
             var context = new TestContext(GetConnection());
             var store = new MongoUserOnlyStore<TestUser>(context);
-            var tracked = await store.FindByIdAsync("b2");
+            var tracked = await store.FindByIdAsync(TestIds.UserId2);
             tracked.CustomData = "updated";
 
             var result = await store.FindByEmailAsync("TEST2@TESTING.COM");

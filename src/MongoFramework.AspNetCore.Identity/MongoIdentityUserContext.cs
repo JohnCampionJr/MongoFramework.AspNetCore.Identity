@@ -71,6 +71,12 @@ namespace MongoFramework.AspNetCore.Identity
         /// </summary>
         /// <param name="options">The options to be used by a <see cref="DbContext"/>.</param>
         public MongoIdentityUserContext(DbContextOptions options) : base(options) { }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            this.Database.AutoTransactionBehavior = AutoTransactionBehavior.Never;
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
