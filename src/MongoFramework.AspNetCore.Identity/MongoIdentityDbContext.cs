@@ -93,7 +93,11 @@ namespace MongoFramework.AspNetCore.Identity
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<TUser>().OwnsMany(p => p.Claims);
             modelBuilder.Entity<TUser>().Property(p => p.Id)
+                .HasBsonRepresentation(BsonType.ObjectId)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<TRole>().Property(p => p.Id)
                 .HasBsonRepresentation(BsonType.ObjectId)
                 .ValueGeneratedOnAdd();
         }

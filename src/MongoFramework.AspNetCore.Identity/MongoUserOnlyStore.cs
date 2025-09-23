@@ -209,28 +209,13 @@ namespace MongoFramework.AspNetCore.Identity
         /// <returns>
         /// The <see cref="Task"/> that represents the asynchronous operation, containing the user matching the specified <paramref name="normalizedUserName"/> if it exists.
         /// </returns>
-        public override async Task<TUser> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken = default(CancellationToken))
+        public override Task<TUser> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken = default(CancellationToken))
         {
+            Check.NotNull(normalizedUserName, nameof(normalizedUserName));
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
-            Check.NotNull(normalizedUserName, nameof(normalizedUserName));
 
-            var user = await UsersSet.AsNoTracking().FirstOrDefaultAsync(u => u.NormalizedUserName == normalizedUserName, cancellationToken);
-
-            // would like to get existing entry if tracked, but need id to find it
-            if (user != null)
-            {
-                var tracked = Context.Entry(user);
-                if (tracked != null)
-                {
-                    return tracked.Entity as TUser;
-                }
-
-                //Attach it if not tracked
-                Context.Attach(user);
-            }
-
-            return user;
+            return Users.FirstOrDefaultAsync(u => u.NormalizedUserName == normalizedUserName, cancellationToken);
         }
 
         /// <summary>
@@ -314,7 +299,7 @@ namespace MongoFramework.AspNetCore.Identity
 
             foreach (var claim in claims)
             {
-                user.Claims.Add(CreateUserClaim(user, claim));
+                user.Claims.Add(CreateUserClaim(user,claim));
             }
 
             return Task.FromResult(false);
@@ -436,27 +421,12 @@ namespace MongoFramework.AspNetCore.Identity
         /// <returns>
         /// The task object containing the results of the asynchronous lookup operation, the user if any associated with the specified normalized email address.
         /// </returns>
-        public override async Task<TUser> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken = default(CancellationToken))
+        public override Task<TUser> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken = default(CancellationToken))
         {
-            Check.NotNull(normalizedEmail, nameof(normalizedEmail));
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
 
-            var user = await UsersSet.AsNoTracking().SingleOrDefaultAsync(u => u.NormalizedEmail == normalizedEmail, cancellationToken);
-            // would like to get existing entry if tracked, but need id to find it
-            if (user != null)
-            {
-                var tracked = Context.Entry(user);
-                if (tracked != null)
-                {
-                    return tracked.Entity as TUser;
-                }
-
-                //Attach it if not tracked
-                Context.Attach(user);
-            }
-
-            return user;
+            return Users.SingleOrDefaultAsync(u => u.NormalizedEmail == normalizedEmail, cancellationToken);
         }
 
         /// <summary>
@@ -470,8 +440,7 @@ namespace MongoFramework.AspNetCore.Identity
         public override async Task<IList<TUser>> GetUsersForClaimAsync(Claim claim, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
-            ThrowIfDisposed();
-            Check.NotNull(claim, nameof(claim));
+            ThrowIfDisposed();      
 
             return await UsersSet.Where(u =>
                  u.Claims.Any(c => c.ClaimType == claim.Type && c.ClaimValue == claim.Value)).ToListAsync(cancellationToken).ConfigureAwait(false);

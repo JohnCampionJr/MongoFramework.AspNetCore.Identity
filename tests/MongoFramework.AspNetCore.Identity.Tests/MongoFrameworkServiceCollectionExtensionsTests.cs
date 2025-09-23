@@ -4,14 +4,13 @@ using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MongoFramework.Infrastructure.Diagnostics;
 using Shouldly;
 using Xunit;
 
 namespace MongoFramework.AspNetCore.Identity.Tests
 {
-	public class MongoFrameworkServiceCollectionExtensionsTests : TestBase
-	{
+    public class MongoFrameworkServiceCollectionExtensionsTests : TestBase
+    {
         public MongoFrameworkServiceCollectionExtensionsTests() : base("MongoFrameworkServiceCollectionExtensionsTests") { }
 
         [Fact]
@@ -26,7 +25,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests
                 return connection;
             });
 
-            services.AddMongoDbContext<MongoIdentityDbContext>();
+            services.AddDbContext<MongoIdentityDbContext>();
 
             var provider = services.BuildServiceProvider();
 
@@ -40,9 +39,9 @@ namespace MongoFramework.AspNetCore.Identity.Tests
 
         }
 
-		[Fact]
-		public void RegistersConnectionWithValidConnectionString()
-		{
+        [Fact]
+        public void RegistersConnectionWithValidConnectionString()
+        {
             var services = new ServiceCollection();
 
             services.AddMongoDbContext<MongoIdentityDbContext>(x =>

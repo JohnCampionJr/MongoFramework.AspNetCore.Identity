@@ -270,17 +270,12 @@ namespace MongoFramework.AspNetCore.Identity
         /// <param name="id">The role ID to look for.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
         /// <returns>A <see cref="Task{TResult}"/> that result of the look up.</returns>
-        public virtual async Task<TRole> FindByIdAsync(string id, CancellationToken cancellationToken = default(CancellationToken))
+        public virtual Task<TRole> FindByIdAsync(string id, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
-            if (id == null)
-            {
-                return null;
-            }
             var roleId = ConvertIdFromString(id);
-            //this will find the in memory user
-            return await RolesSet.FindAsync(roleId).ConfigureAwait(false);
+            return Roles.FirstOrDefaultAsync(u => u.Id.Equals(roleId), cancellationToken);
         }
 
         /// <summary>
@@ -289,27 +284,11 @@ namespace MongoFramework.AspNetCore.Identity
         /// <param name="normalizedName">The normalized role name to look for.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
         /// <returns>A <see cref="Task{TResult}"/> that result of the look up.</returns>
-        public virtual async Task<TRole> FindByNameAsync(string normalizedName, CancellationToken cancellationToken = default(CancellationToken))
+        public virtual Task<TRole> FindByNameAsync(string normalizedName, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
-            var role = await RolesSet.AsNoTracking().FirstOrDefaultAsync(r => r.NormalizedName == normalizedName, cancellationToken);
-
-            // would like to get existing entry if tracked, but need id to find it
-            if (role != null)
-            {
-                var tracked = Context.Entry(role);
-                if (tracked != null)
-                {
-                    return tracked.Entity as TRole;
-                }
-
-                //Attach it if not tracked
-                Context.Attach(role);
-            }
-
-            return role;
-
+            return Roles.FirstOrDefaultAsync(r => r.NormalizedName == normalizedName, cancellationToken);
         }
 
         /// <summary>
@@ -321,8 +300,7 @@ namespace MongoFramework.AspNetCore.Identity
         public virtual Task<string> GetNormalizedRoleNameAsync(TRole role, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
-            ThrowIfDisposed();
-            Check.NotNull(role, nameof(role));
+            ThrowIfDisposed();            
 
             return Task.FromResult(role.NormalizedName);
         }
@@ -337,8 +315,7 @@ namespace MongoFramework.AspNetCore.Identity
         public virtual Task SetNormalizedRoleNameAsync(TRole role, string normalizedName, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
-            ThrowIfDisposed();
-            Check.NotNull(role, nameof(role));
+            ThrowIfDisposed();            
 
             role.NormalizedName = normalizedName;
             return Task.CompletedTask;
@@ -387,6 +364,8 @@ namespace MongoFramework.AspNetCore.Identity
             Check.NotNull(role, nameof(role));
             Check.NotNull(claim, nameof(claim));
 
+            // var roleClaim = new MongoIdentityRoleClaim<TKey> { Role = role.Id, ClaimType = claim.Type, ClaimValue = claim.Value };
+
             role.Claims.Add(CreateRoleClaim(role, claim));
 
             return Task.FromResult(false);
@@ -417,8 +396,6 @@ namespace MongoFramework.AspNetCore.Identity
         /// A navigation property for the roles the store contains.
         /// </summary>
         public virtual IQueryable<TRole> Roles => Context.Set<TRole>();
-
-        private DbSet<TRole> RolesSet => Context.Set<TRole>();
 
         /// <summary>
         /// Creates an entity representing a role claim.

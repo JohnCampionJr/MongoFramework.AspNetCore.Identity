@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -9,72 +9,73 @@ using Xunit;
 
 namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 {
-	public class GetUsersForClaim : TestBase, IAsyncLifetime
-	{
+    public class GetUsersForClaim : TestBase, IAsyncLifetime
+    {
 
-		public GetUsersForClaim() : base("MongoUserOnlyStore-GetUsersForClaim") { }
+        public GetUsersForClaim() : base("MongoUserOnlyStore-GetUsersForClaim") { }
 
-		public async Task InitializeAsync()
-		{
-			var context = new TestContext(GetConnection());
-			var store = new MongoUserOnlyStore<TestUser>(context);
+        public async Task InitializeAsync()
+        {
+            var context = new TestContext(GetConnection());
+            var store = new MongoUserOnlyStore<TestUser>(context);
 
-			var user = TestUser.First;
-			await store.CreateAsync(user);
-			await store.AddClaimsAsync(user,
-				new[]
-				{
-					new Claim("type","value"),
-					new Claim("type2", "value2")
-				});
-			await store.UpdateAsync(user);
-			user = TestUser.Second;
-			await store.CreateAsync(user);
-			await store.AddClaimsAsync(user,
-				new[]
-				{
-					new Claim("type","value"),
-					new Claim("type2", "value2")
-				});
-			await store.UpdateAsync(user);
-			user = TestUser.Third;
-			await store.CreateAsync(user);
-			await store.AddClaimsAsync(user,
-				new[]
-				{
-					new Claim("type","value"),
-					new Claim("type3", "value3")
-				});
-			await store.UpdateAsync(user);
+            var user = TestUser.First;
+            await store.CreateAsync(user);
+            await store.AddClaimsAsync(user,
+                new[]
+                {
+                    new Claim("type","value"),
+                    new Claim("type2", "value2")
+                });
+            await store.UpdateAsync(user);
+            user = TestUser.Second;
+            await store.CreateAsync(user);
+            await store.AddClaimsAsync(user,
+                new[]
+                {
+                    new Claim("type","value"),
+                    new Claim("type2", "value2")
+                });
+            await store.UpdateAsync(user);
+            user = TestUser.Third;
+            await store.CreateAsync(user);
+            await store.AddClaimsAsync(user,
+                new[]
+                {
+                    new Claim("type","value"),
+                    new Claim("type3", "value3")
+                });
+            await store.UpdateAsync(user);
 
-		}
+        }
 
-		public Task DisposeAsync() => Task.CompletedTask;
+        public Task DisposeAsync() => Task.CompletedTask;
 
-		[Fact]
-		public async Task RetrieveUsersForClaim()
-		{
-			var context = new TestContext(GetConnection());
-			var store = new MongoUserOnlyStore<TestUser>(context);
+        [Fact]
+        public async Task RetrieveUsersForClaim()
+        {
+            var context = new TestContext(GetConnection());
+            var store = new MongoUserOnlyStore<TestUser>(context);
 
-			var users = await store.GetUsersForClaimAsync(new Claim("type","value"));
-			var users2 = await store.GetUsersForClaimAsync(new Claim("type2","value2"));
+            var users = await store.GetUsersForClaimAsync(new Claim("type", "value"));
+            var users2 = await store.GetUsersForClaimAsync(new Claim("type2", "value2"));
 
-			users.Count.ShouldBe(3);
-			users2.Count.ShouldBe(2);
+            users.Count.ShouldBe(3);
+            users2.Count.ShouldBe(2);
 
-		}
+        }
 
-		[Fact]
-		public async Task ThrowsExceptionWithNullArguments()
-		{
-			var context = new TestContext(GetConnection());
-			var store = new MongoUserOnlyStore<TestUser>(context);
+        [Fact]
+        public async Task ThrowsExceptionWithNullArguments()
+        {
+            var context = new TestContext(GetConnection());
+            var store = new MongoUserOnlyStore<TestUser>(context);
 
-			await Should.ThrowAsync<ArgumentNullException>( async () =>
-			{
-				await store.GetClaimsAsync(null);
-			});
-		}
+            await Should.ThrowAsync<ArgumentNullException>(async () =>
+            {
+                await store.GetClaimsAsync(null);
+            });
+        }
 
-	}}
+    }
+}

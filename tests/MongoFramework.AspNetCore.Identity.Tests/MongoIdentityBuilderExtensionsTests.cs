@@ -9,14 +9,14 @@ using Xunit;
 
 namespace MongoFramework.AspNetCore.Identity.Tests
 {
-	public class MongoIdentityBuilderExtensionsTests : TestBase
-	{
+    public class MongoIdentityBuilderExtensionsTests : TestBase
+    {
 
         public MongoIdentityBuilderExtensionsTests() : base("MongoIdentityBuilderExtensionsTests") { }
 
-		[Fact]
-		public void RegistersFullyTypedUserStoreWithMongoIdentityContext()
-		{
+        [Fact]
+        public void RegistersFullyTypedUserStoreWithMongoIdentityContext()
+        {
             var services = new ServiceCollection();
 
             services.AddTransient<IMongoDbConnection>(s =>
@@ -40,7 +40,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests
                 db.ShouldBeOfType<MongoUserStore<MongoIdentityUser, MongoIdentityRole, MongoIdentityDbContext, string, IdentityUserClaim<string>, IdentityUserRole<string>, IdentityUserLogin<string>, IdentityUserToken<string>, IdentityRoleClaim<string>>>();
             }
 
-		}
+        }
 
         [Fact]
         public void RegistersFullyTypedUserOnlyStoreWithMongoIdentityContext()
@@ -69,9 +69,9 @@ namespace MongoFramework.AspNetCore.Identity.Tests
             }
 
         }
-		[Fact]
-		public void RegistersLimitedTypedUserStoreWithMongoContext()
-		{
+        [Fact]
+        public void RegistersLimitedTypedUserStoreWithMongoContext()
+        {
             var services = new ServiceCollection();
 
             //need connection
@@ -98,7 +98,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests
                 db.ShouldBeOfType<MongoUserStore<MongoIdentityUser, MongoIdentityRole, MongoDbContext, string>>();
             }
 
-		}
+        }
 
         [Fact]
         public void RegistersLimitedTypedUserOnlyStoreWithMongoContext()

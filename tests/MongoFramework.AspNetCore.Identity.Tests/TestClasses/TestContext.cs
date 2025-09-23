@@ -1,11 +1,19 @@
+﻿using Microsoft.EntityFrameworkCore;
+
 namespace MongoFramework.AspNetCore.Identity.Tests.TestClasses
 {
-	public class TestContext : MongoDbContext
-	{
-		public TestContext(IMongoDbConnection connection) : base(connection) { }
-		public MongoDbSet<TestUser> TestUsers { get; set; }
-		public MongoDbSet<TestUserInt> TestUsersInt { get; set; }
+    public class TestContext : DbContext
+    {
+        public TestContext(DbContextOptions options) : base(options) { }
 
-        public MongoDbSet<MongoIdentityRole> Roles { get; set; }
-	}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            this.Database.AutoTransactionBehavior = AutoTransactionBehavior.Never;
+        }
+
+        public DbSet<TestUser> TestUsers { get; set; }
+        public DbSet<TestUserInt> TestUsersInt { get; set; }
+        public DbSet<MongoIdentityRole> Roles { get; set; }
+    }
 }

@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Test;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using Xunit;
@@ -24,10 +25,10 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserStoreTests
             client.DropDatabase("MongoUserStore-IdentitySpec");
         }
 
-        private MongoDbContext CreateContext()
+        private MongoIdentityDbContext CreateContext()
         {
             var conn = TestConfiguration.GetConnection("MongoUserStore-IdentitySpec");
-            var db = new MongoDbContext(conn);
+            var db = new MongoIdentityDbContext(conn);
             return db;
         }
 
@@ -38,7 +39,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserStoreTests
 
         protected override void AddUserStore(IServiceCollection services, object context = null)
         {
-            services.AddSingleton<IUserStore<MongoIdentityUser>>(new MongoUserStore<MongoIdentityUser, MongoIdentityRole, MongoDbContext>((MongoDbContext)context));
+            services.AddSingleton<IUserStore<MongoIdentityUser>>(new MongoUserStore<MongoIdentityUser, MongoIdentityRole, DbContext>((DbContext)context));
         }
 
         protected override void SetUserPasswordHash(MongoIdentityUser user, string hashedPassword)
@@ -69,7 +70,7 @@ namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserStoreTests
 
         protected override void AddRoleStore(IServiceCollection services, object context = null)
         {
-            services.AddSingleton<IRoleStore<MongoIdentityRole>>(new MongoRoleStore<MongoIdentityRole, MongoDbContext>((MongoDbContext)context));
+            services.AddSingleton<IRoleStore<MongoIdentityRole>>(new MongoRoleStore<MongoIdentityRole, DbContext>((DbContext)context));
         }
 
         protected override MongoIdentityRole CreateTestRole(string roleNamePrefix = "", bool useRoleNamePrefixAsRoleName = false)
