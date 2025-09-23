@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -404,7 +404,18 @@ namespace MongoFramework.AspNetCore.Identity
         /// <param name="claim">The associated claim.</param>
         /// <returns>The role claim entity.</returns>
         protected virtual TRoleClaim CreateRoleClaim(TRole role, Claim claim)
-            => new TRoleClaim { RoleId = role.Id, ClaimType = claim.Type, ClaimValue = claim.Value };
+        {
+            var newId = Random.Shared.Next();
+            while (role.Claims.Any(c => c.Id == newId))
+            {
+                newId = Random.Shared.Next();
+            }
 
+            return new TRoleClaim
+            {
+                RoleId = role.Id, ClaimType = claim.Type, ClaimValue = claim.Value, Id = newId
+            };
+        }
     }
+    
 }

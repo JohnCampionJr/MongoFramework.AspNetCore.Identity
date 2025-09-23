@@ -642,7 +642,12 @@ namespace MongoFramework.AspNetCore.Identity
 
         protected override TUserClaim CreateUserClaim(TUser user, Claim claim)
         {
-            var userClaim = new TUserClaim { UserId = user.Id, Id = user.Claims.Count + 1 };
+            var newId = Random.Shared.Next();
+            while (user.Claims.Any(c => c.Id == newId))
+            {
+                newId = Random.Shared.Next();
+            }
+            var userClaim = new TUserClaim { UserId = user.Id, Id = newId };
             userClaim.InitializeFromClaim(claim);
             return userClaim;
         }
