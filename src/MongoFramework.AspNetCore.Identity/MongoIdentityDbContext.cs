@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Numerics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using MongoDB.Bson;
+using MongoDB.EntityFrameworkCore.Extensions;
 
 namespace MongoFramework.AspNetCore.Identity
 {
@@ -12,8 +15,8 @@ namespace MongoFramework.AspNetCore.Identity
         /// <summary>
         /// Initializes a new instance of <see cref="MongoIdentityDbContext"/>.
         /// </summary>
-        /// <param name="connection">The connection to be used by a <see cref="MongoDbContext"/>.</param>
-        public MongoIdentityDbContext(IMongoDbConnection connection) : base(connection) { }
+        /// <param name="options">The options to be used by a <see cref="DbContext"/>.</param>
+        public MongoIdentityDbContext(DbContextOptions options) : base(options) { }
     }
 
     /// <summary>
@@ -25,8 +28,8 @@ namespace MongoFramework.AspNetCore.Identity
         /// <summary>
         /// Initializes a new instance of <see cref="MongoIdentityDbContext"/>.
         /// </summary>
-        /// <param name="connection">The connection to be used by a <see cref="MongoDbContext"/>.</param>
-        public MongoIdentityDbContext(IMongoDbConnection connection) : base(connection) { }
+        /// <param name="options">The options to be used by a <see cref="DbContext"/>.</param>
+        public MongoIdentityDbContext(DbContextOptions options) : base(options) { }
     }
 
     /// <summary>
@@ -38,8 +41,8 @@ namespace MongoFramework.AspNetCore.Identity
         /// <summary>
         /// Initializes a new instance of <see cref="MongoIdentityDbContext"/>.
         /// </summary>
-        /// <param name="connection">The connection to be used by a <see cref="MongoDbContext"/>.</param>
-        public MongoIdentityDbContext(IMongoDbConnection connection) : base(connection) { }
+        /// <param name="options">The options to be used by a <see cref="DbContext"/>.</param>
+        public MongoIdentityDbContext(DbContextOptions options) : base(options) { }
     }
 
     /// <summary>
@@ -56,8 +59,8 @@ namespace MongoFramework.AspNetCore.Identity
         /// <summary>
         /// Initializes a new instance of the db context.
         /// </summary>
-        /// <param name="connection">The connection to be used by a <see cref="MongoDbContext"/>.</param>
-        public MongoIdentityDbContext(IMongoDbConnection connection) : base(connection) { }
+        /// <param name="options">The options to be used by a <see cref="DbContext"/>.</param>
+        public MongoIdentityDbContext(DbContextOptions options) : base(options) { }
     }
 
     /// <summary>
@@ -84,8 +87,16 @@ namespace MongoFramework.AspNetCore.Identity
         /// <summary>
         /// Initializes a new instance of the class.
         /// </summary>
-        /// <param name="connection">The connection to be used by a <see cref="MongoDbContext"/>.</param>
-        public MongoIdentityDbContext(IMongoDbConnection connection) : base(connection) { }
+        /// <param name="options">The options to be used by a <see cref="DbContext"/>.</param>
+        public MongoIdentityDbContext(DbContextOptions options) : base(options) { }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<TUser>().Property(p => p.Id)
+                .HasBsonRepresentation(BsonType.ObjectId)
+                .ValueGeneratedOnAdd();
+        }
 
         /// <summary>
         /// Gets or sets the <see cref="DbSet{TEntity}"/> of roles.

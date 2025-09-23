@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using MongoDB.Bson;
 
 namespace MongoFramework.AspNetCore.Identity
 {
@@ -13,8 +14,8 @@ namespace MongoFramework.AspNetCore.Identity
         /// <summary>
         /// Initializes a new instance of <see cref="MongoIdentityUserContext{TUser}"/>.
         /// </summary>
-        /// <param name="connection">The connection to be used by a <see cref="MongoDbContext"/>.</param>
-        public MongoIdentityUserContext(IMongoDbConnection connection) : base(connection) { }
+        /// <param name="options">The options to be used by a <see cref="DbContext"/>.</param>
+        public MongoIdentityUserContext(DbContextOptions options) : base(options) { }
 
     }
 
@@ -27,8 +28,8 @@ namespace MongoFramework.AspNetCore.Identity
         /// <summary>
         /// Initializes a new instance of <see cref="MongoIdentityUserContext{TUser}"/>.
         /// </summary>
-        /// <param name="connection">The connection to be used by a <see cref="MongoDbContext"/>.</param>
-        public MongoIdentityUserContext(IMongoDbConnection connection) : base(connection) { }
+        /// <param name="options">The options to be used by a <see cref="DbContext"/>.</param>
+        public MongoIdentityUserContext(DbContextOptions options) : base(options) { }
 
     }
 
@@ -45,8 +46,8 @@ namespace MongoFramework.AspNetCore.Identity
         /// <summary>
         /// Initializes a new instance of the db context.
         /// </summary>
-        /// <param name="connection">The connection to be used by a <see cref="MongoDbContext"/>.</param>
-        public MongoIdentityUserContext(IMongoDbConnection connection) : base(connection) { }
+        /// <param name="options">The options to be used by a <see cref="DbContext"/>.</param>
+        public MongoIdentityUserContext(DbContextOptions options) : base(options) { }
 
     }
 
@@ -68,8 +69,15 @@ namespace MongoFramework.AspNetCore.Identity
         /// <summary>
         /// Initializes a new instance of the class.
         /// </summary>
-        /// <param name="connection">The connection to be used by a <see cref="MongoDbContext"/>.</param>
-        public MongoIdentityUserContext(IMongoDbConnection connection) : base(connection) { }
+        /// <param name="options">The options to be used by a <see cref="DbContext"/>.</param>
+        public MongoIdentityUserContext(DbContextOptions options) : base(options) { }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<TUser>().Property(p => p.Id)
+                .HasBsonRepresentation(BsonType.ObjectId)
+                .ValueGeneratedOnAdd();
+        }
 
         /// <summary>
         /// Gets or sets the <see cref="DbSet{TEntity}"/> of Users.
