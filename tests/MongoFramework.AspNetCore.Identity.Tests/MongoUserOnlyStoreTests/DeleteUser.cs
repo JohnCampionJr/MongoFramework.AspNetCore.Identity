@@ -3,11 +3,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using MongoFramework.AspNetCore.Identity.Tests.TestClasses;
+using MongoEntityFramework.AspNetCore.Identity.Tests.TestClasses;
 using Shouldly;
 using Xunit;
 
-namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
+namespace MongoEntityFramework.AspNetCore.Identity.Tests.MongoUserOnlyStoreTests
 {
     public class DeleteUser : TestBase
     {

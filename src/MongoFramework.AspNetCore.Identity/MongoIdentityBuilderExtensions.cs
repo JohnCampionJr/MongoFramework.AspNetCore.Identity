@@ -5,8 +5,8 @@ using System.Reflection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using MongoFramework;
-using MongoFramework.AspNetCore.Identity;
+using MongoEntityFramework;
+using MongoEntityFramework.AspNetCore.Identity;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection

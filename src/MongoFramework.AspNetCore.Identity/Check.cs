@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MongoFramework.AspNetCore.Identity
+namespace MongoEntityFramework.AspNetCore.Identity
 {
     [DebuggerStepThrough]
     internal static class Check

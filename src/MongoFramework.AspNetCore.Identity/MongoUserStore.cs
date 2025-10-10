@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace MongoFramework.AspNetCore.Identity
+namespace MongoEntityFramework.AspNetCore.Identity
 {
     /// <summary>
     /// Represents a new instance of a persistence store for users, using the default implementation

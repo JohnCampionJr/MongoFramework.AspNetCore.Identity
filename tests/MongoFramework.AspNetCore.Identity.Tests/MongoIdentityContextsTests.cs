@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson;
-using MongoFramework.AspNetCore.Identity.Tests.TestClasses;
+using MongoEntityFramework.AspNetCore.Identity.Tests.TestClasses;
 using Shouldly;
 using Xunit;
 
-namespace MongoFramework.AspNetCore.Identity.Tests
+namespace MongoEntityFramework.AspNetCore.Identity.Tests
 {
     public static class TestIds
     {

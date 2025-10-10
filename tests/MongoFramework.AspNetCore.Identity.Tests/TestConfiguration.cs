@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using MongoDB.Driver;
 
-namespace MongoFramework.AspNetCore.Identity.Tests
+namespace MongoEntityFramework.AspNetCore.Identity.Tests
 {
     static class TestConfiguration
     {

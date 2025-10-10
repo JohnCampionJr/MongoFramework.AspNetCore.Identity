@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\MongoFramework.AspNetCore.Identity\MongoFramework.AspNetCore.Identity.csproj" />
+    <ProjectReference Include="..\..\src\MongoFramework.AspNetCore.Identity\MongoEntityFramework.AspNetCore.Identity.csproj" />
   </ItemGroup>
 
 </Project>

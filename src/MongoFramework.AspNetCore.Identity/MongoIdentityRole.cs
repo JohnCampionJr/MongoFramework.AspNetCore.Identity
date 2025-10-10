@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
-namespace MongoFramework.AspNetCore.Identity
+namespace MongoEntityFramework.AspNetCore.Identity
 {
     public class MongoIdentityRole : MongoIdentityRole<string>
     {

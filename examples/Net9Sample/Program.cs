@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using MongoFramework.AspNetCore.Identity;
+using MongoEntityFramework.AspNetCore.Identity;
 using Net9Sample.Data;
 
 var builder = WebApplication.CreateBuilder(args);

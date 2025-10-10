@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MongoFramework.AspNetCore.Identity
+namespace MongoEntityFramework.AspNetCore.Identity
 {
     /// <summary>
     /// Represents a claim that a user possesses.

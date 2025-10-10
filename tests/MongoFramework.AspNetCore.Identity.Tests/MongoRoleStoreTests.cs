@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using MongoFramework.AspNetCore.Identity.Tests.TestClasses;
+using MongoEntityFramework.AspNetCore.Identity.Tests.TestClasses;
 using Shouldly;
 using Xunit;
 
-namespace MongoFramework.AspNetCore.Identity.Tests
+namespace MongoEntityFramework.AspNetCore.Identity.Tests
 {
     public class MongoRoleStoreTests : TestBase, IAsyncLifetime
     {

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Shouldly;
 using Xunit;
 
-namespace MongoFramework.AspNetCore.Identity.Tests
+namespace MongoEntityFramework.AspNetCore.Identity.Tests
 {
     public class MongoIdentityRoleTests
     {

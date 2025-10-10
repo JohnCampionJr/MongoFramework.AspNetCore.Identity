@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using Xunit;
 
-namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserStoreTests
+namespace MongoEntityFramework.AspNetCore.Identity.Tests.MongoUserStoreTests
 {
     public class IdentitySpecTests : IdentitySpecificationTestBase<MongoIdentityUser, MongoIdentityRole>, IDisposable
     {

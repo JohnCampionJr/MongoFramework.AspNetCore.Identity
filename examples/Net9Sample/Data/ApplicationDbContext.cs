@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MongoDB.EntityFrameworkCore.Metadata.Conventions;
-using MongoFramework.AspNetCore.Identity;
+using MongoEntityFramework.AspNetCore.Identity;
 
 namespace Net9Sample.Data
 {

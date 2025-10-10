@@ -9,9 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{361C3E41-652
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{96A1AC98-4533-45A3-A7B2-0A5CFF3C16CE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoFramework.AspNetCore.Identity", "src\MongoFramework.AspNetCore.Identity\MongoFramework.AspNetCore.Identity.csproj", "{B90D555B-ADCA-4AD4-BF15-024E7AFA1A92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoEntityFramework.AspNetCore.Identity", "src\MongoFramework.AspNetCore.Identity\MongoEntityFramework.AspNetCore.Identity.csproj", "{B90D555B-ADCA-4AD4-BF15-024E7AFA1A92}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoFramework.AspNetCore.Identity.Tests", "tests\MongoFramework.AspNetCore.Identity.Tests\MongoFramework.AspNetCore.Identity.Tests.csproj", "{29C2E938-DF09-4B16-B48C-AD78C3696066}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoEntityFramework.AspNetCore.Identity.Tests", "tests\MongoFramework.AspNetCore.Identity.Tests\MongoEntityFramework.AspNetCore.Identity.Tests.csproj", "{29C2E938-DF09-4B16-B48C-AD78C3696066}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "global", "global", "{A8F5FC10-E567-49AB-90DD-77BCAAC16987}"
 	ProjectSection(SolutionItems) = preProject
@@ -28,6 +28,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{55F01A81-369B-4207-B216-D1E7479696CE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net9Sample", "examples\Net9Sample\Net9Sample.csproj", "{7AB4932C-6991-498D-9A5C-59181FCEDEAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net9MultiTenant", "Net9MultiTenant\Net9MultiTenant.csproj", "{32C329F8-EE9A-4EDA-95EA-AB4C0A84766D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{7AB4932C-6991-498D-9A5C-59181FCEDEAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AB4932C-6991-498D-9A5C-59181FCEDEAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AB4932C-6991-498D-9A5C-59181FCEDEAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32C329F8-EE9A-4EDA-95EA-AB4C0A84766D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32C329F8-EE9A-4EDA-95EA-AB4C0A84766D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32C329F8-EE9A-4EDA-95EA-AB4C0A84766D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32C329F8-EE9A-4EDA-95EA-AB4C0A84766D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +61,7 @@ Global
 		{B90D555B-ADCA-4AD4-BF15-024E7AFA1A92} = {361C3E41-652C-480A-B249-58CEEB13DD07}
 		{29C2E938-DF09-4B16-B48C-AD78C3696066} = {96A1AC98-4533-45A3-A7B2-0A5CFF3C16CE}
 		{7AB4932C-6991-498D-9A5C-59181FCEDEAB} = {55F01A81-369B-4207-B216-D1E7479696CE}
+		{32C329F8-EE9A-4EDA-95EA-AB4C0A84766D} = {55F01A81-369B-4207-B216-D1E7479696CE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {29545771-6EAC-4B41-9942-E68F79302B8D}

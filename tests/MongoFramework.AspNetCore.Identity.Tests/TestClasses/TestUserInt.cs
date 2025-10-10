@@ -1,4 +1,4 @@
-﻿namespace MongoFramework.AspNetCore.Identity.Tests.TestClasses
+﻿namespace MongoEntityFramework.AspNetCore.Identity.Tests.TestClasses
 {
     public class TestUserInt : MongoIdentityUser<int>
     {

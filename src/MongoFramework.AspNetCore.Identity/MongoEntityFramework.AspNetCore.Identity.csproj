@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <TargetFrameworks>net9.0</TargetFrameworks>
-    <AssemblyName>MongoFramework.AspNetCore.Identity</AssemblyName>
-    <Title>MongoFramework.AspNetCore.Identity</Title>
-    <Description>.Net Core Identity providers for MongoFramework</Description>
+    <AssemblyName>MongoEntityFramework.AspNetCore.Identity</AssemblyName>
+    <Title>MongoEntityFramework.AspNetCore.Identity</Title>
+    <Description>Asp.Net Core Identity providers for MongoDB.EntityFrameworkCore</Description>
     <PackageTags>$(PackageBaseTags)</PackageTags>
     <Authors>John Campion Jr</Authors>
   </PropertyGroup>

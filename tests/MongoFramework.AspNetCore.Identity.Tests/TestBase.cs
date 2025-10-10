@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
 
-namespace MongoFramework.AspNetCore.Identity.Tests
+namespace MongoEntityFramework.AspNetCore.Identity.Tests
 {
     public abstract class TestBase : IDisposable
     {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MongoDB.Bson;
 
-namespace MongoFramework.AspNetCore.Identity
+namespace MongoEntityFramework.AspNetCore.Identity
 {
     /// <summary>
     /// Base class for the Entity Framework database context used for identity.
@@ -16,6 +16,7 @@ namespace MongoFramework.AspNetCore.Identity
         /// </summary>
         /// <param name="options">The options to be used by a <see cref="DbContext"/>.</param>
         public MongoIdentityUserContext(DbContextOptions options) : base(options) { }
+        public MongoIdentityUserContext() : base() { }
 
     }
 
@@ -30,6 +31,8 @@ namespace MongoFramework.AspNetCore.Identity
         /// </summary>
         /// <param name="options">The options to be used by a <see cref="DbContext"/>.</param>
         public MongoIdentityUserContext(DbContextOptions options) : base(options) { }
+
+        public MongoIdentityUserContext() : base() { }
 
     }
 
@@ -48,6 +51,7 @@ namespace MongoFramework.AspNetCore.Identity
         /// </summary>
         /// <param name="options">The options to be used by a <see cref="DbContext"/>.</param>
         public MongoIdentityUserContext(DbContextOptions options) : base(options) { }
+        public MongoIdentityUserContext() : base() { }
 
     }
 
@@ -71,6 +75,8 @@ namespace MongoFramework.AspNetCore.Identity
         /// </summary>
         /// <param name="options">The options to be used by a <see cref="DbContext"/>.</param>
         public MongoIdentityUserContext(DbContextOptions options) : base(options) { }
+        public MongoIdentityUserContext() : base() { }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);

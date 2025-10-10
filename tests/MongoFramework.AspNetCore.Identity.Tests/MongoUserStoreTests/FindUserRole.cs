@@ -5,11 +5,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using MongoFramework.AspNetCore.Identity.Tests.TestClasses;
+using MongoEntityFramework.AspNetCore.Identity.Tests.TestClasses;
 using Shouldly;
 using Xunit;
 
-namespace MongoFramework.AspNetCore.Identity.Tests.MongoUserStoreTests
+namespace MongoEntityFramework.AspNetCore.Identity.Tests.MongoUserStoreTests
 {
     public class FindUserRole : TestBase, IAsyncLifetime
     {

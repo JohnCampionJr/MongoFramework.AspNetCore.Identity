@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson;
 
-namespace MongoFramework.AspNetCore.Identity.Tests.TestClasses
+namespace MongoEntityFramework.AspNetCore.Identity.Tests.TestClasses
 {
     public class TestUser : MongoIdentityUser
     {
