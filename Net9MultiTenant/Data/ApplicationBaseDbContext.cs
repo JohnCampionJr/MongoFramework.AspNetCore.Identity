@@ -11,14 +11,8 @@ using Net9MultiTenant.Models;
 
 namespace Net9MultiTenant.Data
 {
-    public class ApplicationDbContext(IMultiTenantContextAccessor multiTenantContextAccessor,
-        DbContextOptions<ApplicationDbContext> options) : MongoIdentityDbContext(options), IMultiTenantDbContext
+    public class ApplicationBaseDbContext(IMultiTenantContextAccessor multiTenantContextAccessor, DbContextOptions<ApplicationBaseDbContext> options) : MultiTenantMongoIdentityDbContext(multiTenantContextAccessor, options)
     {
-
-        public ITenantInfo? TenantInfo { get; } = multiTenantContextAccessor.MultiTenantContext.TenantInfo;
-        public TenantMismatchMode TenantMismatchMode { get; set; } = TenantMismatchMode.Throw;
-        public TenantNotSetMode TenantNotSetMode { get; set; } = TenantNotSetMode.Throw;
-
 
         public DbSet<ToDoItem> ToDoItems { get; set; }
 
@@ -38,22 +32,9 @@ namespace Net9MultiTenant.Data
             // If necessary call the base class method.
             // Recommended to be called first.
             base.OnModelCreating(builder);
-            builder.ConfigureMultiTenant();
-            builder.Entity<MongoIdentityUser>().IsMultiTenant().AdjustUniqueIndexes();
-            builder.Entity<MongoIdentityRole>().IsMultiTenant().AdjustUniqueIndexes();
-            builder.Entity<ToDoItem>().IsMultiTenant();
-        }
-        public override int SaveChanges(bool acceptAllChangesOnSuccess)
-        {
-            this.EnforceMultiTenant();
-            return base.SaveChanges(acceptAllChangesOnSuccess);
-        }
 
-        public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess,
-            CancellationToken cancellationToken = default(CancellationToken))
-        {
-            this.EnforceMultiTenant();
-            return await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken).ConfigureAwait(false);
+            builder.Entity<ToDoItem>().IsMultiTenant();
+
         }
 
     }

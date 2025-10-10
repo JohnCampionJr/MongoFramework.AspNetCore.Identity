@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/gh/JohnCampionJr/MongoEntityFramework.AspNetCore.Identity/branch/main/graph/badge.svg?token=9573STFAXG)](undefined)
 
 # MongoEntityFramework.AspNetCore.Identity
-Asp.Net Core Identity providers for [MongoDB.EntityFrameworkCore](https://github.com/TurnerSoftware/MongoFramework).
+Asp.Net Core Identity providers for [MongoDB.EntityFrameworkCore](https://github.com/mongodb/mongo-efcore-provider).
 
 ## Features
 MongoFramework Implementations

@@ -1,4 +1,4 @@
-﻿// Copyright Finbuckle LLC, Andrew White, and Contributors.
+﻿// Optional Base DbContext Example
 // Refer to the solution LICENSE file for more information.
 
 using Finbuckle.MultiTenant.Abstractions;
