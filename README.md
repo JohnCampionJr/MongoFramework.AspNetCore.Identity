@@ -1,3 +1,5 @@
+![alt text](https://raw.githubusercontent.com/jcamp-code/FluentEmail/main/assets/mongoidentity_logo_64x64.png "Mongo Identity")
+
 # MongoEntityFramework.AspNetCore.Identity
 Asp.Net Core Identity providers for [MongoDB.EntityFrameworkCore](https://github.com/mongodb/mongo-efcore-provider).
 

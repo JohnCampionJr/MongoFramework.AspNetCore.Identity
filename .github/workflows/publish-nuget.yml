@@ -1,0 +1,50 @@
+# Note this will only work with Release-Please if you have given it a PAT.
+# The default GITHUB_TOKEN does not have permission to run workflows on releases
+name: Publish to NuGet
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  id-token: write # Required for OIDC
+  contents: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v5
+
+      - name: Setup DotNet ✨
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: | 
+            8.0.x
+            9.0.x
+            10.0.x
+
+      - name: Install dependencies 📦️
+        run: dotnet restore
+
+      - name: Build 🔨
+        run: dotnet build --no-restore -c Release
+
+      # If not using <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+      - name: Pack NuGet 🏗️
+        run: |
+          dotnet pack --no-build -v normal --include-symbols -o nupkg
+
+      # Get a short-lived NuGet API key
+      - name: NuGet login (OIDC → temp API key)
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{secrets.NUGET_USER}}
+
+      - name: Push NuGet 🚀
+        run: |          
+          dotnet nuget push **/*.nupkg -k ${{steps.login.outputs.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json --skip-duplicate
+          # dotnet nuget push **/*.nupkg -k ${{secrets.NUGET_API_KEY}} -s https://f.feedz.io/jcamp/nuget-test/nuget/index.json --skip-duplicate

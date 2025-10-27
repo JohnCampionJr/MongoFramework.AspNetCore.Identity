@@ -1,0 +1,35 @@
+﻿name: .NET Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v5
+
+      - name: Setup DotNet ✨
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: | 
+            8.0.x
+            9.0.x
+            10.0.x
+
+      - name: Install dependencies 📦️
+        run: dotnet restore
+
+      - name: Build 🔨
+        run: dotnet build --no-restore -c Release
+
+      - name: Test ✅
+        run: dotnet test --verbosity normal

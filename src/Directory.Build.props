@@ -1,35 +1,43 @@
 <Project>
 
   <PropertyGroup>
-    <RootNamespace>MongoEntityFramework.AspNetCore.Identity</RootNamespace>
-
-    <Company>Relate Technology</Company>
-
-    <PackageId>jcamp.MongoEntityFramework.AspNetCore.Identity</PackageId>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageProjectUrl>https://github.com/JohnCampionJr/MongoFramework.AspNetCore.Identity</PackageProjectUrl>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    <Authors>John Campion</Authors>
     <PackageBaseTags>mongodb;mongoframework;mongo;identity</PackageBaseTags>
+    <PackageIconUrl>https://raw.githubusercontent.com/jcamp-code/MongoEntityFramework.AspNetCore.Identity/main/assets/mongoidentity_logo_64x64.png</PackageIconUrl>
+    <PackageIcon>mongoidentity_logo_64x64.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/jcamp-code/MongoEntityFramework.AspNetCore.Identity</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/jcamp-code/MongoEntityFramework.AspNetCore.Identity.git</RepositoryUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Version>0.0.0</Version>
 
-    <RepositoryUrl>https://github.com/JohnCampionJr/MongoFramework.AspNetCore.Identity.git</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryBranch>main</RepositoryBranch>
-
-    <!-- SourceLink Support -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <DebugSymbols>true</DebugSymbols>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <IsPackable>true</IsPackable>
 
-    <LangVersion>Latest</LangVersion>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors>true</WarningsAsErrors>
+
+    <CLSCompliant>true</CLSCompliant>
+    <ComVisible>false</ComVisible>
+
+    <AssetsDirectory>../../../assets</AssetsDirectory>
+
+    <LangVersion>latest</LangVersion>
+
   </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+    <None Include="$(AssetsDirectory)/mongoidentity_logo_64x64.png" Pack="true" Visible="false" PackagePath=""/>
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\LICENSE" Pack="true" Visible="false" PackagePath=""/>
-    <None Include="..\..\README.md" Pack="true" Visible="false" PackagePath=""/>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="all"/>
   </ItemGroup>
 
 </Project>
