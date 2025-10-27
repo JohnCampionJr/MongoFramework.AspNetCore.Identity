@@ -5,6 +5,7 @@
     <AssemblyName>MongoEntityFramework.AspNetCore.Identity</AssemblyName>
     <Title>MongoEntityFramework.AspNetCore.Identity</Title>
     <Description>Asp.Net Core Identity providers for MongoDB.EntityFrameworkCore</Description>
+    <PackageName>jcamp.MongoEntityFramework.AspNetCore.Identity</PackageName>
     <PackageTags>$(PackageBaseTags)</PackageTags>
     <Authors>John Campion Jr</Authors>
   </PropertyGroup>

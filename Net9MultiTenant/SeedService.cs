@@ -1,11 +1,6 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Finbuckle.MultiTenant;
+﻿using Finbuckle.MultiTenant;
 using Finbuckle.MultiTenant.Abstractions;
 using Finbuckle.MultiTenant.EntityFrameworkCore;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Net9MultiTenant.Data;
 using Net9MultiTenant.Models;
 

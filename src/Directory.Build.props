@@ -1,11 +1,11 @@
 <Project>
 
   <PropertyGroup>
-    <RootNamespace>MongoFramework.AspNetCore.Identity</RootNamespace>
+    <RootNamespace>MongoEntityFramework.AspNetCore.Identity</RootNamespace>
 
     <Company>Relate Technology</Company>
 
-    <PackageId>$(AssemblyName)</PackageId>
+    <PackageId>jcamp.MongoEntityFramework.AspNetCore.Identity</PackageId>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/JohnCampionJr/MongoFramework.AspNetCore.Identity</PackageProjectUrl>

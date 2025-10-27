@@ -22,7 +22,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <typeparam name="TContext">The Mongo Framework database context to use.</typeparam>
         /// <param name="builder">The <see cref="IdentityBuilder"/> instance this method extends.</param>
         /// <returns>The <see cref="IdentityBuilder"/> instance this method extends.</returns>
-        public static IdentityBuilder AddMongoFrameworkStores<TContext>(this IdentityBuilder builder)
+        public static IdentityBuilder AddMongoEntityFrameworkStores<TContext>(this IdentityBuilder builder)
             where TContext : DbContext
         {
             AddStores(builder.Services, builder.UserType, builder.RoleType, typeof(TContext));

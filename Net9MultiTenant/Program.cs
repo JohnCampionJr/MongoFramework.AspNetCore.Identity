@@ -1,6 +1,5 @@
 ﻿using Finbuckle.MultiTenant;
 using Finbuckle.MultiTenant.EntityFrameworkCore.Stores.EFCoreStore;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MongoEntityFramework.AspNetCore.Identity;
 using Net9MultiTenant;
@@ -17,7 +16,7 @@ builder.Services.AddDbContext<EFCoreStoreDbContext<TenantInfo>>(options => optio
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<MongoIdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddMongoFrameworkStores<ApplicationDbContext>();
+    .AddMongoEntityFrameworkStores<ApplicationDbContext>();
 
 
 builder.Services.AddRazorPages();

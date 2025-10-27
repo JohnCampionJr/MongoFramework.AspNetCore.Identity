@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using MongoEntityFramework.AspNetCore.Identity;
 using Net9Sample.Data;
 
@@ -15,7 +14,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 //builder.Services.AddDefaultMongoIdentity<MongoIdentityUser, ApplicationDbContext>(options => options.SignIn.RequireConfirmedAccount = true);    
 builder.Services.AddDefaultIdentity<MongoIdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddMongoFrameworkStores<ApplicationDbContext>();
+    .AddMongoEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();

@@ -1,7 +1,7 @@
 [CmdletBinding(PositionalBinding=$false)]
 param(
 	[bool] $RunTests = $true,
-	[bool] $CreatePackages,
+	[bool] $CreatePackages = $true,
 	[string] $BuildVersion
 )
 
