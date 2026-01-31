@@ -27,7 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "global", "global", "{A8F5FC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{55F01A81-369B-4207-B216-D1E7479696CE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net6Example", "examples\Net6Example\Net6Example.csproj", "{3C2A5434-D026-47B0-8EA9-F034F802CB1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net10Example", "examples\Net10Example\Net10Example.csproj", "{3C2A5434-D026-47B0-8EA9-F034F802CB1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

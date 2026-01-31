@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <UserSecretsId>aspnet-Identity31Sample-9AD8E5E4-4AFB-4C7E-B11A-4C3D00FF3CD9</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.19" />
-    <PackageReference Include="MongoFramework" Version="0.29.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="10.0.2" />
+    <PackageReference Include="jcamp.MongoFramework" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>

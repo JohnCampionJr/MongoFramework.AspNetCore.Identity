@@ -5,6 +5,9 @@
 # MongoFramework.AspNetCore.Identity
 .Net Core Identity providers for [MongoFramework](https://github.com/TurnerSoftware/MongoFramework).
 
+## Versioning
+The version of this package is synced with [jcamp.MongoFramework](https://github.com/JohnCampionJr/MongoFramework) to indicate compatibility with the underlying MongoDB C# Driver version.
+
 ## Features
 MongoFramework Implementations
 - IdentityUser

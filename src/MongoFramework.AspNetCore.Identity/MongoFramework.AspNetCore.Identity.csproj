@@ -1,31 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+    <TargetFramework>net10.0</TargetFramework>
     <AssemblyName>MongoFramework.AspNetCore.Identity</AssemblyName>
-    <Title>MongoFramework.AspNetCore.Identity</Title>
+    <Title>jcamp.MongoFramework.AspNetCore.Identity</Title>
+    <PackageId>jcamp.MongoFramework.AspNetCore.Identity</PackageId>
     <Description>.Net Core Identity providers for MongoFramework</Description>
     <PackageTags>$(PackageBaseTags)</PackageTags>
     <Authors>John Campion Jr</Authors>
   </PropertyGroup>
 
-  <Choose>
-    <When Condition=" '$(TargetFramework)' == 'net7.0' ">
-      <ItemGroup>
-        <FrameworkReference Include="Microsoft.AspNetCore.App" />
-        <PackageReference Include="MongoFramework" Version="0.29.0" />
-        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.20" />
-        <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.20" />
-      </ItemGroup>
-    </When>
-    <When Condition=" '$(TargetFramework)' == 'net6.0' ">
-      <ItemGroup>
-        <FrameworkReference Include="Microsoft.AspNetCore.App" />
-        <PackageReference Include="MongoFramework" Version="0.29.0" />
-        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="6.0.33" />
-        <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="6.0.33" />
-      </ItemGroup>
-    </When>
-  </Choose>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="jcamp.MongoFramework" Version="3.0.0" />
+  </ItemGroup>
 
 </Project>
